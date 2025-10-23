@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".loginsc">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="221dp"
+            android:layout_height="59dp"
+            android:backgroundTint="#3F51B5"
+            android:text="Sign up"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="95dp"
+            tools:layout_editor_absoluteY="624dp"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="221dp"
+            android:layout_height="57dp"
+            android:backgroundTint="#3F51B5"
+            android:text="Log in"
+            android:textColorLink="#2B2D30"
+            android:textSize="20sp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="95dp"
+            tools:layout_editor_absoluteY="509dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="171dp"
+            android:layout_height="59dp"
+            android:text="Log In"
+            android:textSize="24sp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="156dp"
+            tools:layout_editor_absoluteY="263dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forget password ?"
+            tools:layout_editor_absoluteX="140dp"
+            tools:layout_editor_absoluteY="476dp"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/etPass"
+            android:layout_width="352dp"
+            android:layout_height="61dp"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textEmailAddress"
+            tools:layout_editor_absoluteX="34dp"
+            tools:layout_editor_absoluteY="400dp"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="347dp"
+            android:layout_height="55dp"
+            android:ems="10"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            tools:layout_editor_absoluteX="34dp"
+            tools:layout_editor_absoluteY="330dp"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="209dp"
+            android:layout_height="226dp"
+            app:srcCompat="@drawable/pro"
+            tools:layout_editor_absoluteX="102dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OR"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="181dp"
+            tools:layout_editor_absoluteY="585dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
