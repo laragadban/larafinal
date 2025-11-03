@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/btnlogin1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -14,85 +14,113 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnSignup"
             android:layout_width="221dp"
-            android:layout_height="59dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="49dp"
             android:backgroundTint="#3F51B5"
             android:text="Sign up"
             android:textSize="20sp"
-            tools:layout_editor_absoluteX="95dp"
-            tools:layout_editor_absoluteY="624dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Tvor"
             tools:ignore="MissingConstraints" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnLogin"
             android:layout_width="221dp"
-            android:layout_height="57dp"
+            android:layout_height="0dp"
             android:backgroundTint="#3F51B5"
             android:text="Log in"
             android:textColorLink="#2B2D30"
             android:textSize="20sp"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="95dp"
-            tools:layout_editor_absoluteY="509dp" />
+            app:layout_constraintBottom_toTopOf="@+id/Tvor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Tvpass"
+            tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/Tvlog"
             android:layout_width="171dp"
-            android:layout_height="59dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="54dp"
+            android:layout_marginEnd="59dp"
+            android:layout_marginBottom="8dp"
             android:text="Log In"
             android:textSize="24sp"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="156dp"
-            tools:layout_editor_absoluteY="263dp" />
+            app:layout_constraintBottom_toTopOf="@+id/etEmail"
+            app:layout_constraintEnd_toEndOf="@+id/etEmail"
+            app:layout_constraintStart_toStartOf="@+id/imgpro"
+            app:layout_constraintTop_toBottomOf="@+id/imgpro"
+            tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/Tvpass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="46dp"
             android:text="Forget password ?"
-            tools:layout_editor_absoluteX="140dp"
-            tools:layout_editor_absoluteY="476dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPass"
             tools:ignore="MissingConstraints" />
 
         <EditText
             android:id="@+id/etPass"
-            android:layout_width="352dp"
-            android:layout_height="61dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="15dp"
             android:ems="10"
             android:hint="Password"
             android:inputType="textEmailAddress"
-            tools:layout_editor_absoluteX="34dp"
-            tools:layout_editor_absoluteY="400dp"
+            app:layout_constraintBottom_toTopOf="@+id/Tvpass"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etEmail"
             tools:ignore="MissingConstraints" />
 
         <EditText
             android:id="@+id/etEmail"
-            android:layout_width="347dp"
-            android:layout_height="55dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="9dp"
             android:ems="10"
             android:hint="E-mail"
             android:inputType="textEmailAddress"
-            tools:layout_editor_absoluteX="34dp"
-            tools:layout_editor_absoluteY="330dp"
+            app:layout_constraintBottom_toTopOf="@+id/etPass"
+            app:layout_constraintEnd_toEndOf="@+id/etPass"
+            app:layout_constraintStart_toStartOf="@+id/etPass"
+            app:layout_constraintTop_toBottomOf="@+id/Tvlog"
             tools:ignore="MissingConstraints" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="209dp"
-            android:layout_height="226dp"
-            app:srcCompat="@drawable/pro"
-            tools:layout_editor_absoluteX="102dp"
-            tools:layout_editor_absoluteY="16dp" />
-
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/Tvor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="OR"
             android:textSize="20sp"
-            tools:layout_editor_absoluteX="181dp"
-            tools:layout_editor_absoluteY="585dp" />
+            app:layout_constraintBottom_toTopOf="@+id/btnSignup"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/imgpro"
+            android:layout_width="209dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="21dp"
+            app:layout_constraintBottom_toTopOf="@+id/Tvlog"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pro" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
