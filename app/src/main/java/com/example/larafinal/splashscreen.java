@@ -25,16 +25,17 @@ public class splashscreen extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        // add code to open next activity sautamatically after 3 seconds
-        // create a new thread and post a runnable to the handler
-        // the runnable will call the startActivity method to open the next activity
-        new Thread(() -  > {
+        Tvloading = findViewById(R.id.Tvloading);
+        new Thread(() -> {
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            runOnUiThread(() -> startActivity(new Intent(splashscreen.this, loginsc.class)));
+            runOnUiThread(() -> {
+                Intent intent = new Intent(splashscreen.this, loginsc.class);
+                startActivity(intent);
+            });
         }).start();
     }
 }
