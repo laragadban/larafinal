@@ -12,10 +12,12 @@
         android:id="@+id/Tvloading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
         android:backgroundTint="#000000"
         android:text="Loading..."
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="660dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.example.larafinal;
 
 import static com.example.larafinal.R.id.imgpro;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -40,9 +41,16 @@ public class loginsc extends AppCompatActivity {
         etPass = findViewById(R.id.etPass);
         etEmail = findViewById(R.id.etEmail);
         imageView = findViewById(R.id.imgpro);
-        btnLogin.setOnClickListener(v -> {
 
-        });
+btnSignUp.setOnClickListener(v1 -> {
+    Intent intent = new Intent(loginsc.this, SignUp.class);
+    startActivity(intent);
+});
+btnLogin.setOnClickListener(v2 -> {
+    Intent intent = new Intent(loginsc.this, MainActivity.class);
+    startActivity(intent);
+});
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.btnlogin1), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

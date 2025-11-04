@@ -11,7 +11,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/etPass"
+        app:layout_constraintTop_toTopOf="@+id/etPass">
 
         <Button
             android:id="@+id/btnSignup"
@@ -43,8 +45,8 @@
 
         <TextView
             android:id="@+id/Tvlog"
-            android:layout_width="171dp"
-            android:layout_height="0dp"
+            android:layout_width="232dp"
+            android:layout_height="65dp"
             android:layout_marginStart="54dp"
             android:layout_marginEnd="59dp"
             android:layout_marginBottom="8dp"
@@ -52,6 +54,7 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/etEmail"
             app:layout_constraintEnd_toEndOf="@+id/etEmail"
+            app:layout_constraintHorizontal_bias="0.028"
             app:layout_constraintStart_toStartOf="@+id/imgpro"
             app:layout_constraintTop_toBottomOf="@+id/imgpro"
             tools:ignore="MissingConstraints" />
@@ -113,7 +116,7 @@
         <ImageView
             android:id="@+id/imgpro"
             android:layout_width="209dp"
-            android:layout_height="0dp"
+            android:layout_height="175dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="21dp"
             app:layout_constraintBottom_toTopOf="@+id/Tvlog"

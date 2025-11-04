@@ -28,7 +28,7 @@ public class splashscreen extends AppCompatActivity {
         // add code to open next activity sautamatically after 3 seconds
         // create a new thread and post a runnable to the handler
         // the runnable will call the startActivity method to open the next activity
-        new Thread(() -> {
+        new Thread(() -  > {
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {

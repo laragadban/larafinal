@@ -7,6 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".SignUp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="0dp"></LinearLayout>
+
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="0dp"
@@ -48,7 +55,7 @@
         android:ems="10"
         android:hint="password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/confirmPassword"
+        app:layout_constraintBottom_toTopOf="@+id/etConPass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etEmail" />
@@ -58,7 +65,7 @@
         android:id="@+id/btnsign"
         android:layout_width="166dp"
         android:layout_height="0dp"
-        android:layout_marginStart="105dp"
+        android:layout_marginStart="104dp"
         android:layout_marginBottom="14dp"
         android:background="#9B7373"
         android:backgroundTint="#753333"
@@ -68,8 +75,8 @@
         android:text="Sign Up"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/Tvaccount"
-        app:layout_constraintStart_toStartOf="@+id/confirmPassword"
-        app:layout_constraintTop_toBottomOf="@+id/confirmPassword" />
+        app:layout_constraintStart_toStartOf="@+id/etConPass"
+        app:layout_constraintTop_toBottomOf="@+id/etConPass" />
 
     <TextView
         android:id="@+id/Tvaccount"
@@ -79,12 +86,12 @@
         android:layout_marginBottom="17dp"
         android:text="Have an account ?"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnln"
+        app:layout_constraintBottom_toTopOf="@+id/btnIn"
         app:layout_constraintStart_toStartOf="@+id/btnsign"
         app:layout_constraintTop_toBottomOf="@+id/btnsign" />
 
     <EditText
-        android:id="@+id/confirmPassword"
+        android:id="@+id/etConPass"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="4dp"
@@ -99,7 +106,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etPass" />
 
     <Button
-        android:id="@+id/btnln"
+        android:id="@+id/btnIn"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="74dp"
