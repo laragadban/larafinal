@@ -17,44 +17,46 @@
 
         <Button
             android:id="@+id/btnSignup"
-            android:layout_width="221dp"
-            android:layout_height="0dp"
+            android:layout_width="210dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="49dp"
-            android:backgroundTint="#3F51B5"
+            android:backgroundTint="#673AB7"
             android:text="Sign up"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Tvor"
             tools:ignore="MissingConstraints" />
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="221dp"
-            android:layout_height="0dp"
-            android:backgroundTint="#3F51B5"
+            android:layout_width="210dp"
+            android:layout_height="50dp"
+            android:backgroundTint="#673AB7"
             android:text="Log in"
             android:textColorLink="#2B2D30"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/Tvor"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Tvpass"
             tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/Tvlog"
-            android:layout_width="232dp"
-            android:layout_height="65dp"
+            android:layout_width="375dp"
+            android:layout_height="32dp"
             android:layout_marginStart="54dp"
             android:layout_marginEnd="59dp"
             android:layout_marginBottom="8dp"
-            android:text="Log In"
+            android:text="Log in to your account"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/etEmail"
             app:layout_constraintEnd_toEndOf="@+id/etEmail"
-            app:layout_constraintHorizontal_bias="0.028"
+            app:layout_constraintHorizontal_bias="0.359"
             app:layout_constraintStart_toStartOf="@+id/imgpro"
             app:layout_constraintTop_toBottomOf="@+id/imgpro"
             tools:ignore="MissingConstraints" />
@@ -73,8 +75,8 @@
 
         <EditText
             android:id="@+id/etPass"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="380dp"
+            android:layout_height="61dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="15dp"
@@ -83,14 +85,15 @@
             android:inputType="textEmailAddress"
             app:layout_constraintBottom_toTopOf="@+id/Tvpass"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.473"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etEmail"
             tools:ignore="MissingConstraints" />
 
         <EditText
             android:id="@+id/etEmail"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="380dp"
+            android:layout_height="61dp"
             android:layout_marginBottom="9dp"
             android:ems="10"
             android:hint="E-mail"
@@ -106,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="OR"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/btnSignup"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -115,8 +118,8 @@
 
         <ImageView
             android:id="@+id/imgpro"
-            android:layout_width="209dp"
-            android:layout_height="175dp"
+            android:layout_width="213dp"
+            android:layout_height="178dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="21dp"
             app:layout_constraintBottom_toTopOf="@+id/Tvlog"

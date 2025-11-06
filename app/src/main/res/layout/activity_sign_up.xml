@@ -8,11 +8,8 @@
     tools:context=".SignUp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="0dp"></LinearLayout>
+        tools:layout_editor_absoluteX="-4dp"
+        tools:layout_editor_absoluteY="1dp"></LinearLayout>
 
     <EditText
         android:id="@+id/etUsername"
@@ -65,14 +62,17 @@
         android:id="@+id/btnsign"
         android:layout_width="166dp"
         android:layout_height="0dp"
-        android:layout_marginStart="104dp"
+        android:layout_marginStart="100dp"
         android:layout_marginBottom="14dp"
-        android:background="#9B7373"
-        android:backgroundTint="#753333"
+        android:background="#804949"
+        android:backgroundTint="#673AB7"
         android:backgroundTintMode="add"
         android:contextClickable="true"
         android:hapticFeedbackEnabled="true"
         android:text="Sign Up"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#EDEAEA"
+        android:textSize="24sp"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/Tvaccount"
         app:layout_constraintStart_toStartOf="@+id/etConPass"
@@ -85,7 +85,7 @@
         android:layout_marginStart="26dp"
         android:layout_marginBottom="17dp"
         android:text="Have an account ?"
-        android:textSize="14sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/btnIn"
         app:layout_constraintStart_toStartOf="@+id/btnsign"
         app:layout_constraintTop_toBottomOf="@+id/btnsign" />
@@ -107,8 +107,8 @@
 
     <Button
         android:id="@+id/btnIn"
-        android:layout_width="166dp"
-        android:layout_height="0dp"
+        android:layout_width="98dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="74dp"
         android:background="#FFFFFF"
         android:backgroundTint="@color/white"
@@ -117,9 +117,9 @@
         android:textColor="#161515"
         android:textColorLink="#2B2D30"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnsign"
-        app:layout_constraintStart_toStartOf="@+id/btnsign"
-        app:layout_constraintTop_toBottomOf="@+id/Tvaccount"
+        app:layout_constraintEnd_toEndOf="@id/Tvaccount"
+        app:layout_constraintStart_toStartOf="@id/Tvaccount"
+        app:layout_constraintTop_toBottomOf="@id/Tvaccount"
         app:rippleColor="@color/white"
         app:strokeColor="@color/white" />
 </androidx.constraintlayout.widget.ConstraintLayout>
