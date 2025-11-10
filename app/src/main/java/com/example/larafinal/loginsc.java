@@ -1,7 +1,5 @@
 package com.example.larafinal;
 
-import static com.example.larafinal.R.id.imgpro;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,14 +17,14 @@ import androidx.core.view.WindowInsetsCompat;
 public class loginsc extends AppCompatActivity {
 /* <<<<<<<<<<<<<<  ✨ Windsurf Command ⭐ >>>>>>>>>>>>>>>> */
     private Button btnLogin;
-    private Button btnSignUp;
+    private Button btnlog;
     private EditText etPass;
     private EditText etEmail;
     private TextView Tvpass;
     private  ImageView imgpro;
     private TextView Tvor;
     private TextView Tvlog;
-    private ImageView imageView;
+    private View btnsSignup;
 
 
     /* <<<<<<<<<<  7f0b32a2-6855-4fda-afcb-f05e0f552701  >>>>>>>>>>> */
@@ -36,11 +34,15 @@ public class loginsc extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-        btnLogin = findViewById(R.id.btnLogin);
-        btnSignUp = findViewById(R.id.btnSignup);
+        btnsSignup = findViewById(R.id.btnSignup);
+        btnlog = findViewById(R.id.);
+        Tvlog = findViewById(R.id.Tvlog);
+        Tvpass = findViewById(R.id.Tvpass);
         etPass = findViewById(R.id.etPass);
         etEmail = findViewById(R.id.etEmail);
-        imageView = findViewById(R.id.imgpro);
+        Tvor = findViewById(R.id.Tvor);
+        imgpro = findViewById(R.id.imgpro);
+
 
 btnSignUp.setOnClickListener(v1 -> {
     Intent intent = new Intent(loginsc.this, SignUp.class);

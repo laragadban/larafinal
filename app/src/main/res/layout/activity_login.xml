@@ -31,7 +31,7 @@
             tools:ignore="MissingConstraints" />
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnlog"
             android:layout_width="210dp"
             android:layout_height="50dp"
             android:backgroundTint="#673AB7"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="46dp"
             android:text="Forget password ?"
-            app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+            app:layout_constraintBottom_toTopOf="@+id/btnlog"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etPass"
@@ -113,7 +113,7 @@
             app:layout_constraintBottom_toTopOf="@+id/btnSignup"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+            app:layout_constraintTop_toBottomOf="@+id/btnlog"
             tools:ignore="MissingConstraints" />
 
         <ImageView
