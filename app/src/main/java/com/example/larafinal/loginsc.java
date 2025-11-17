@@ -16,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class loginsc extends AppCompatActivity {
 /* <<<<<<<<<<<<<<  ✨ Windsurf Command ⭐ >>>>>>>>>>>>>>>> */
-    private Button btnLogin;
+
     private Button btnlog;
     private EditText etPass;
     private EditText etEmail;
@@ -24,7 +24,7 @@ public class loginsc extends AppCompatActivity {
     private  ImageView imgpro;
     private TextView Tvor;
     private TextView Tvlog;
-    private View btnsSignup;
+    private View btnSignup;
 
 
     /* <<<<<<<<<<  7f0b32a2-6855-4fda-afcb-f05e0f552701  >>>>>>>>>>> */
@@ -34,8 +34,8 @@ public class loginsc extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-        btnsSignup = findViewById(R.id.btnSignup);
-        btnlog = findViewById(R.id.);
+        btnSignup = findViewById(R.id.btnSignup);
+        btnlog = findViewById(R.id.btnSignUp1);
         Tvlog = findViewById(R.id.Tvlog);
         Tvpass = findViewById(R.id.Tvpass);
         etPass = findViewById(R.id.etPass);
@@ -43,15 +43,15 @@ public class loginsc extends AppCompatActivity {
         Tvor = findViewById(R.id.Tvor);
         imgpro = findViewById(R.id.imgpro);
 
-
-btnSignUp.setOnClickListener(v1 -> {
-    Intent intent = new Intent(loginsc.this, SignUp.class);
-    startActivity(intent);
-});
-btnLogin.setOnClickListener(v2 -> {
+        btnlog.setOnClickListener(v2 -> {
     Intent intent = new Intent(loginsc.this, MainActivity.class);
     startActivity(intent);
 });
+btnSignup.setOnClickListener(v1 -> {
+    Intent intent = new Intent(loginsc.this, SignUp.class);
+    startActivity(intent);
+});
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.btnlogin1), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
