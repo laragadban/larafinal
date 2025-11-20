@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-public class MyUser {
+
     //Entity = Table =جدول
 //عندما نريد ان نتعامل مع هذه الفئة كجدول معطيات
     /**
@@ -21,17 +21,6 @@ public class MyUser {
         public String email;//بحالة لم يتم اعطاء اسم للعامود يكون اسم الصفه هو اسم العامود
         public String password;
         public String Confirmpassword;
-        @NonNull
-        @Override
-        public String toString() {
-            return "MyUser{" +
-                    "keyid=" + keyid +
-                    ", fullName='" + UserName + '\'' +
-                    ", email='" + email + '\'' +
-                    ", phone='" +  password + '\'' +
-                    ", password='" +  Confirmpassword + '\'' +
-                    '}';
-        }
 
         public long getKeyid() {
             return keyid;
@@ -72,9 +61,19 @@ public class MyUser {
         public void setConfirmpassword(String confirmpassword) {
             Confirmpassword = confirmpassword;
         }
+
+        @Override
+        public String toString() {
+            return "MyUser{" +
+                    "keyid=" + keyid +
+                    ", UserName='" + UserName + '\'' +
+                    ", email='" + email + '\'' +
+                    ", password='" + password + '\'' +
+                    ", Confirmpassword='" + Confirmpassword + '\'' +
+                    '}';
+        }
     }
 
-    }
 
 
 

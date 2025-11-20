@@ -1,92 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/btnlogin1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUp">
+    android:orientation="vertical"
+    tools:context=".SignUp"
+    android:layout_marginTop="60dp">
 
-    <LinearLayout
-        android:layout_width="411dp"
-        android:layout_height="731dp" />
+    <TextView
+        android:id="@+id/tvSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="welcome"
+
+        />
+
 
     <EditText
         android:id="@+id/etUsername"
-        android:layout_width="403dp"
-        android:layout_height="47dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:ems="10"
         android:hint="username"
-        android:inputType="numberPassword"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="214dp" />
+        android:inputType="numberPassword" />
 
     <EditText
         android:id="@+id/etEmail"
-        android:layout_width="405dp"
-        android:layout_height="47dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:hint="E-mail"
-        android:inputType="textEmailAddress"
-        tools:layout_editor_absoluteX="3dp"
-        tools:layout_editor_absoluteY="274dp" />
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/etPass"
-        android:layout_width="409dp"
-        android:layout_height="47dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:hint="password"
-        android:inputType="textPassword"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="328dp" />
-
-
-    <TextView
-        android:id="@+id/Tvaccount"
-        android:layout_width="209dp"
-        android:layout_height="28dp"
-        android:text="Have an account ?"
-        android:textSize="14sp"
-        tools:layout_editor_absoluteX="118dp"
-        tools:layout_editor_absoluteY="560dp" />
+        android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/etConPass"
-        android:layout_width="403dp"
-        android:layout_height="47dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:hint="confirm password"
-        android:inputType="numberPassword"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="384dp" />
+        android:inputType="numberPassword" />
 
     <Button
         android:id="@+id/btnSignUp1"
-        android:layout_width="210dp"
+        android:layout_width="wrap_content"
         android:layout_height="47dp"
         android:backgroundTint="#673AB7"
         android:text="Sign up"
         android:textColorLink="#2B2D30"
 
         android:textSize="20sp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="101dp"
-        tools:layout_editor_absoluteY="496dp" />
+        tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/btnLogIn1"
-        android:layout_width="88dp"
-        android:layout_height="47dp"
-        android:background="#FFFFFF"
-        android:shadowColor="#D8E2E4"
-        android:text="Log In"
-        android:textColor="#161515"
-        android:textColorLink="#2B2D30"
-        app:cornerRadius="25dp"
-        app:strokeWidth="2dp"
-        tools:layout_editor_absoluteX="287dp"
-        tools:layout_editor_absoluteY="560dp" />
+    <TextView
+        android:id="@+id/Tvaccount"
+        android:layout_width="209dp"
+        android:layout_height="28dp"
+        android:text="Have an account ?"
+        android:textSize="14sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/TvLog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log In" />
+
+
+</LinearLayout>
 

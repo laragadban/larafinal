@@ -14,14 +14,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class SignUp extends AppCompatActivity {
-    private Button btnSignUp1;
+    private TextView TvSignUp;
+
     private EditText etUsername;
     private EditText etEmail;
     private EditText etPass;
     private EditText etConPass;
     private TextView Tvaccount;
 
-    private Button btnLogIn1;
+    private TextView TvLOG ;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
-        btnLogIn1 = findViewById(R.id.btnLogIn1);
+        btnLogIn1 = findViewById(R.id.btnlogin1);
         btnSignUp1 = findViewById(R.id.btnSignUp1);
         etUsername = findViewById(R.id.etUsername);
         etEmail = findViewById(R.id.etEmail);
