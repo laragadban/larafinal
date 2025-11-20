@@ -22,10 +22,11 @@
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="username"
-        android:inputType="numberPassword" />
+        android:inputType="numberPassword"
+        />
 
     <EditText
         android:id="@+id/etEmail"
@@ -33,12 +34,15 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="E-mail"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="30dp"
+        />
 
     <EditText
         android:id="@+id/etPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="password"
         android:inputType="textPassword" />
@@ -47,33 +51,31 @@
         android:id="@+id/etConPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="confirm password"
         android:inputType="numberPassword" />
 
     <Button
         android:id="@+id/btnSignUp1"
-        android:layout_width="wrap_content"
-        android:layout_height="47dp"
+        android:layout_width="134dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="150dp"
         android:backgroundTint="#673AB7"
         android:text="Sign up"
         android:textColorLink="#2B2D30"
-
         android:textSize="20sp"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/Tvaccount"
-        android:layout_width="209dp"
-        android:layout_height="28dp"
-        android:text="Have an account ?"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/TvLog"
-        android:layout_width="wrap_content"
+        android:layout_width="181dp"
         android:layout_height="wrap_content"
-        android:text="Log In" />
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="80dp"
+        android:text="Have an account ? Log In "
+        android:textSize="14sp" />
 
 
 </LinearLayout>
