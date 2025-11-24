@@ -13,8 +13,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class splashscreen extends AppCompatActivity {
 
-    private TextView Tvloading;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +23,7 @@ public class splashscreen extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Tvloading = findViewById(R.id.Tvloading);
+
         new Thread(() -> {
             try {
                 Thread.sleep(3000);
