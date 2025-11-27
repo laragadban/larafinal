@@ -1,5 +1,6 @@
 package com.example.larafinal;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -35,5 +36,18 @@ public class splashscreen extends AppCompatActivity {
                 startActivity(intent);
             });
         }).start();
+    }
+}
+public class splashscreen extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.splashscreen);
+
+        @SuppressLint("MissingInflatedId") Button getStarted = findViewById(R.id.btnlogin1);
+        getStarted.setOnClickListener(v -> {
+            Intent i = new Intent(splashscreen.this, loginsc.class);
+            startActivity(i);
+        });
     }
 }

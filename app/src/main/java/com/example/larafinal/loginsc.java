@@ -1,62 +1,50 @@
 package com.example.larafinal;
 
-import android.content.Intent;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import android.widget.Toast;
 
 public class loginsc extends AppCompatActivity {
-/* <<<<<<<<<<<<<<  ✨ Windsurf Command ⭐ >>>>>>>>>>>>>>>> */
 
-    private Button btnlog;
-    private EditText etPass;
     private EditText etEmail;
-    private TextView Tvpass;
-    private  ImageView imgpro;
-    private TextView Tvor;
-    private TextView Tvlog;
-    private View btnSignup;
+    private EditText etPassword;
 
+    private Button btnLogin;
+    private TextView tvForgot;
 
-    /* <<<<<<<<<<  7f0b32a2-6855-4fda-afcb-f05e0f552701  >>>>>>>>>>> */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login);
-        btnSignup = findViewById(R.id.btnSignup);
-        btnlog = findViewById(R.id.btnSignUp1);
-        Tvlog = findViewById(R.id.Tvlog);
-        Tvpass = findViewById(R.id.Tvpass);
-        etPass = findViewById(R.id.etPass);
-        etEmail = findViewById(R.id.etEmail);
-        Tvor = findViewById(R.id.Tvor);
-        imgpro = findViewById(R.id.imgpro);
+        setContentView(R.layout.activity_login); // ضع اسم ملف XML الصحيح
 
-        btnlog.setOnClickListener(v2 -> {
-    Intent intent = new Intent(loginsc.this, MainActivity.class);
-    startActivity(intent);
-});
-btnSignup.setOnClickListener(v1 -> {
-    Intent intent = new Intent(loginsc.this, SignUp.class);
-    startActivity(intent);
-});
+        // ---------- ربط العناصر ----------
+        etEmail = findViewById(R.id.et_login_email);
+        etPassword = findViewById(R.id.et_login_password);
+        btnLogin = findViewById(R.id.btn_login);
+        tvForgot = findViewById(R.id.tv_forgot);
 
+        // ---------- زر تسجيل الدخول ----------
+        btnLogin.setOnClickListener(v -> {
+            String email = etEmail.getText().toString().trim();
+            String pass = etPassword.getText().toString().trim();
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.btnlogin1), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+            if (email.isEmpty() || pass.isEmpty()) {
+                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // هنا بتعمل logic تسجيل الدخول
+            Toast.makeText(this, "Login clicked", Toast.LENGTH_SHORT).show();
+        });
+
+        // ---------- ضغط على "Forgot Password?" ----------
+        tvForgot.setOnClickListener(v -> {
+            Toast.makeText(this, "Forgot password clicked", Toast.LENGTH_SHORT).show();
         });
     }
 }
+
+

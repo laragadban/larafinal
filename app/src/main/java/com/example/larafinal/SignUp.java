@@ -1,59 +1,52 @@
 package com.example.larafinal;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import android.widget.Toast;
 
 public class SignUp extends AppCompatActivity {
-    private TextView TvSignUp;
-    private EditText etUsername;
-    private EditText etEmail;
-    private EditText etPass;
-    private EditText etConPass;
-    private Button btnSignUp1;
-    private  TextView Tvaccount;
 
-    private TextView TvLOG ;
-    @SuppressLint("MissingInflatedId")
+    private EditText etName, etEmail, etPassword;
+    private Button btnSignup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_sign_up);
-        btnSignUp1 = findViewById(R.id.btnSignUp1);
-        etUsername = findViewById(R.id.etUsername);
-        etEmail = findViewById(R.id.etEmail);
-        etConPass = findViewById(R.id.etConPass);
-        etPass = findViewById(R.id.etPass);
-        Tvaccount = findViewById(R.id.Tvaccount);
-        TvSignUp = findViewById(R.id.btnlogin1);
+        setContentView(R.layout.activity_sign_up); // غيّر الاسم حسب ملف XML تبعك
 
-Tvaccount.setOnClickListener(v ->
-        {
-            Intent intent = new Intent(SignUp.this, loginsc.class);
-            startActivity(intent);
-            finish();
-        });
-        btnSignUp1.setOnClickListener(v ->
-        {
-            Intent intent = new Intent(SignUp.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        });
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.btnlogin1), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        // ----------- ربط العناصر -----------
+        etName = findViewById(R.id.et_signup_name);
+        etEmail = findViewById(R.id.et_signup_email);
+        etPassword = findViewById(R.id.et_signup_password);
+        btnSignup = findViewById(R.id.btn_signup);
+
+        // ----------- زر التسجيل -----------
+        btnSignup.setOnClickListener(v -> {
+
+            String name = etName.getText().toString().trim();
+            String email = etEmail.getText().toString().trim();
+            String pass = etPassword.getText().toString().trim();
+
+            // فحص أولي للحقول
+            if (name.isEmpty() || email.isEmpty() || pass.isEmpty()) {
+                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (pass.length() < 6) {
+                Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // هون بتعمل منطق إنشاء الحساب
+            Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+
+            // مثال: ترجع للمكان السابق
+            // finish();
         });
     }
 }
