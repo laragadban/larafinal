@@ -11,6 +11,8 @@ import android.widget.Toast;
 public class SignUp extends AppCompatActivity {
 
     private EditText etName, etEmail, etPassword;
+
+    private EditText etCon; ;
     private Button btnSignup;
 
     @Override
@@ -23,6 +25,7 @@ public class SignUp extends AppCompatActivity {
         etEmail = findViewById(R.id.et_signup_email);
         etPassword = findViewById(R.id.et_signup_password);
         btnSignup = findViewById(R.id.btn_signup);
+        etCon = findViewById(R.id.etCon);
 
         // ----------- زر التسجيل -----------
         btnSignup.setOnClickListener(v -> {
@@ -30,6 +33,7 @@ public class SignUp extends AppCompatActivity {
             String name = etName.getText().toString().trim();
             String email = etEmail.getText().toString().trim();
             String pass = etPassword.getText().toString().trim();
+            String confirme = etCon.getText().toString().trim();
 
             // فحص أولي للحقول
             if (name.isEmpty() || email.isEmpty() || pass.isEmpty()) {
@@ -37,8 +41,8 @@ public class SignUp extends AppCompatActivity {
                 return;
             }
 
-            if (pass.length() < 6) {
-                Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+            if (pass.length() < 8) {
+                Toast.makeText(this, "Password must be at least 8 characters", Toast.LENGTH_SHORT).show();
                 return;
             }
 

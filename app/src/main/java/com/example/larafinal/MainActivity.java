@@ -37,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
         // --------- تجهيز البيانات ---------
 
 
+
+
+
+
         // --------- تعبئة قائمة القارات ---------
         ArrayAdapter<String> continentAdapter = new ArrayAdapter<>(
                 this,
