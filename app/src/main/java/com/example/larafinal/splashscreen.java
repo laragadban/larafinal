@@ -38,16 +38,3 @@ public class splashscreen extends AppCompatActivity {
         }).start();
     }
 }
-public class splashscreen extends AppCompatActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.splashscreen);
-
-        @SuppressLint("MissingInflatedId") Button getStarted = findViewById(R.id.btnlogin1);
-        getStarted.setOnClickListener(v -> {
-            Intent i = new Intent(splashscreen.this, loginsc.class);
-            startActivity(i);
-        });
-    }
-}
