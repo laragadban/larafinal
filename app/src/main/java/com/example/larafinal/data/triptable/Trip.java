@@ -8,13 +8,15 @@ public class Trip
 {
     @PrimaryKey(autoGenerate = true)
     public long id;
-    private String name;
-    private String type;
+    private String name;//
+    private String type;//
     private String country;
-    private String image;
-    private String description;
-
-    private String rating;
+    private String town;//
+    private String address;//
+    private long lat,lang;
+    private String image;//
+    private String description;//
+    private String rating;//
     private String reviews;
 
     public long getId() {
