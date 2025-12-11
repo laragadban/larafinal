@@ -35,8 +35,25 @@ public class MainActivity extends AppCompatActivity {
         btnContinue = findViewById(R.id.btnContinue);
 
         // --------- تجهيز البيانات ---------
+        mapCountries = new HashMap<>();
 
+        ArrayList<String> asia = new ArrayList<>();
+        asia.add("Saudi Arabia");
+        asia.add("United Arab Emirates");
+        asia.add("Japan");
+        mapCountries.put("Asia", asia);
 
+        ArrayList<String> africa = new ArrayList<>();
+        africa.add("Egypt");
+        africa.add("Morocco");
+        africa.add("South Africa");
+        mapCountries.put("Africa", africa);
+
+        ArrayList<String> europe = new ArrayList<>();
+        europe.add("France");
+        europe.add("Germany");
+        europe.add("Spain");
+        mapCountries.put("Europe", europe);
 
 
 

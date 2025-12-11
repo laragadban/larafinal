@@ -8,16 +8,21 @@ public class Trip
 {
     @PrimaryKey(autoGenerate = true)
     public long id;
-    private String name;//
-    private String type;//
+    private String name;
+    private String type;
     private String country;
-    private String town;//
-    private String address;//
+
+    // These caused the error because they were missing getters/setters
+    private String town;
+    private String address;
     private long lat,lang;
-    private String image;//
-    private String description;//
-    private String rating;//
+
+    private String image;
+    private String description;
+    private String rating;
     private String reviews;
+
+    // ... existing getters and setters ...
 
     public long getId() {
         return id;
@@ -50,6 +55,42 @@ public class Trip
     public void setCountry(String country) {
         this.country = country;
     }
+
+    // --- ADD THESE METHODS ---
+
+    public String getTown() {
+        return town;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public long getLat() {
+        return lat;
+    }
+
+    public void setLat(long lat) {
+        this.lat = lat;
+    }
+
+    public long getLang() {
+        return lang;
+    }
+
+    public void setLang(long lang) {
+        this.lang = lang;
+    }
+
+    // -------------------------
 
     public String getImage() {
         return image;

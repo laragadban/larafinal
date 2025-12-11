@@ -13,13 +13,16 @@ import java.util.List;
 public interface MyTaskQuery {
     @Query("SELECT * FROM MyTask")
     List<MyTask> getAll();
+
     @Insert
     void insert(MyTask myTask);
+
     @Delete
     void delete(MyTask myTask);
+
     @Update
     void update(MyTask myTask);
 
-
+    @Query("SELECT * FROM MyTask WHERE task = :task") // Added this annotation
     List<MyTask> getTaskByTask(String task);
 }
