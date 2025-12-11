@@ -123,4 +123,11 @@ public class Trip
     public void setReviews(String reviews) {
         this.reviews = reviews;
     }
+
+    public String getTripName() {
+        return name;
+    }
+    public String getTripDescription() {
+        return description;
+    }
 }

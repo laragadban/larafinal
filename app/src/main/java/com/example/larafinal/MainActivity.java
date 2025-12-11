@@ -1,4 +1,6 @@
 package com.example.larafinal;
+import static com.example.larafinal.data.Appdatabase.db;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -10,6 +12,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.larafinal.data.triptable.MyTaskAdapter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinnerContinents;
     private ListView listCountries;
     private Button btnContinue;
+    private ListView listTrip;
+    private MyTaskAdapter adapter;
 
     // قارات + الدول
     private HashMap<String, ArrayList<String>> mapCountries;
@@ -28,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity); // غيّر الاسم حسب ملف XML
+        listTrip = findViewById(R.id.listTrip);
+        adapter = new MyTaskAdapter(this, R.layout.trip_item_layout);
+        listTrip.setAdapter(adapter);
 
         // --------- ربط العناصر ---------
         spinnerContinents = findViewById(R.id.spinnerContinents);
@@ -92,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
         listCountries.setOnItemClickListener((parent, view, position, id) -> {
             selectedCountry = parent.getItemAtPosition(position).toString();
         });
+    }
+    protected void onResume() {
+        super.onResume();
+        adapter.clear();
+        adapter.addAll(db.getMyTasks());
     }
 }
 

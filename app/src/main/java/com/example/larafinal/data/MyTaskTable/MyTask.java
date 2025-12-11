@@ -9,4 +9,8 @@ public class MyTask {
    public long id;
    public String task;
    public boolean isDone;
+
+   public String getTaskName() {
+      return task;
+   }
 }
