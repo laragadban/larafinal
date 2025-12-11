@@ -2,6 +2,7 @@ package com.example.larafinal;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -20,10 +21,10 @@ private TextInputEditText etTripName;
 private TextInputEditText etDestination;
 private TextView tvTripType;
 private RadioGroup rgTripType;
-private RadioGroup rbBusiness;
-private RadioGroup rbLeisure;
-private RadioGroup rbFamily;
-private     TextView tvRating;
+private RadioButton rbBusiness;
+private RadioButton rbLeisure;
+private RadioButton rbFamily;
+private TextView tvRating;
 private Slider sliderRating;
 private Button btnSaveTrip;
 
@@ -51,5 +52,6 @@ private Button btnSaveTrip;
             return insets;
         });
     }
+
 
 }
