@@ -7,22 +7,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.larafinal.data.triptable.MyJourneyAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Spinner spinnerContinents;
-    private ListView listCountries;
-    private Button btnContinue;
-    private ListView listTrip;
+    private TextView tvdes;
+    private Spinner spinnerCon;
+    private TextView tvcou;
+    private SearchView search;
+    private ListView countryListView;
     private MyJourneyAdapter adapter;
+   private FloatingActionButton fabAdd;
 
     // قارات + الدول
     private HashMap<String, ArrayList<String>> mapCountries;
@@ -32,15 +36,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity); // غيّر الاسم حسب ملف XML
-        listTrip = findViewById(R.id.listCountries);
+        setContentView(R.layout.main_activity);// غيّر الاسم حسب ملف XML
+
+        tvdes = findViewById(R.id.tvdes);
+        spinnerCon = findViewById(R.id.spinnerCon);
+        tvcou = findViewById(R.id.tvcou);
+        search = findViewById(R.id.search);
+        fabAdd=
+        countryListView = findViewById(R.id.countryListView);
         adapter = new MyJourneyAdapter(this, R.layout.journey_item_layout);
-        listTrip.setAdapter(adapter);
+        countryListView.setAdapter(adapter);
+
 
         // --------- ربط العناصر ---------
-        spinnerContinents = findViewById(R.id.spinnerContinents);
-        listCountries = findViewById(R.id.listCountries);
-        btnContinue = findViewById(R.id.btnContinue);
+        spinnerCon = findViewById(R.id.spinnerCon);
+        search = findViewById(R.id.search);
 
         // --------- تجهيز البيانات ---------
         mapCountries = new HashMap<>();
@@ -73,10 +83,10 @@ public class MainActivity extends AppCompatActivity {
                 new ArrayList<>(mapCountries.keySet())
         );
         continentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerContinents.setAdapter(continentAdapter);
+        spinnerCon.setAdapter(continentAdapter);
 
         // --------- عند اختيار قارة ---------
-        spinnerContinents.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerCon.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -88,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                         android.R.layout.simple_list_item_1,
                         mapCountries.get(selectedContinent)
                 );
-                listCountries.setAdapter(countriesAdapter);
+                countryListView.setAdapter(countriesAdapter);
             }
 
             @Override
@@ -97,10 +107,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // --------- عند اختيار دولة ---------
-        listCountries.setOnItemClickListener((parent, view, position, id) -> {
+        countryListView.setOnItemClickListener((parent, view, position, id) -> {
             selectedCountry = parent.getItemAtPosition(position).toString();
         });
     }
+
     @Override
     protected void onResume() {
         super.onResume(); // Always call super first
