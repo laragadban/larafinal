@@ -15,7 +15,7 @@ import com.example.larafinal.data.triptable.TripQurery;
 
 @Database(entities = {MyUser.class, MyTask.class, Trip.class}, version = 1)
 public abstract class Appdatabase extends RoomDatabase {
-    private static Appdatabase db;
+    public static Appdatabase db;
 
     public abstract MyUserQuery myUserQuery();
 

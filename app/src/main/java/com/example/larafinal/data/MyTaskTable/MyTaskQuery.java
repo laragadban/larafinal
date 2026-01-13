@@ -6,7 +6,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.larafinal.data.MyTaskTable.MyTask;
+import com.example.larafinal.data.triptable.Trip;
+
 import java.util.List;
 
 @Dao
@@ -23,6 +24,9 @@ public interface MyTaskQuery {
     @Update
     void update(MyTask myTask);
 
-    @Query("SELECT * FROM MyTask WHERE task = :task") // Added this annotation
+    @Query("SELECT * FROM MyTask WHERE task = :task")
     List<MyTask> getTaskByTask(String task);
-}
+
+    @Query("SELECT * FROM MyTask")
+    Trip getAllTasks();
+} // ONLY ONE brace should be here at the end.

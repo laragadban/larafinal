@@ -13,9 +13,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.larafinal.data.triptable.MyTaskAdapter;
+import com.example.larafinal.data.triptable.Trip;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity); // غيّر الاسم حسب ملف XML
-        listTrip = findViewById(R.id.listTrip);
+        listTrip = findViewById(R.id.listCountries);
         adapter = new MyTaskAdapter(this, R.layout.trip_item_layout);
         listTrip.setAdapter(adapter);
 
@@ -102,11 +104,35 @@ public class MainActivity extends AppCompatActivity {
             selectedCountry = parent.getItemAtPosition(position).toString();
         });
     }
+    @Override
     protected void onResume() {
-        super.onResume();
+        super.onResume(); // Always call super first
+
+        // 1. Clear the old data so you don't show duplicates
         adapter.clear();
-        adapter.addAll(db.getMyTasks());
+
+        // 2. Fetch the list from the database and add it to the adapter
+        // Assuming getAllTasks() returns List<Trip>
+        if (db.myTaskQuery() != null) {
+            adapter.addAll(db.myTaskQuery().getAllTasks());
+        }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
 
 
