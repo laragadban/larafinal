@@ -4,7 +4,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Trip
+public class MyJourney
 {
     @PrimaryKey(autoGenerate = true)
     public long id;

@@ -10,17 +10,17 @@ import com.example.larafinal.data.MyTaskTable.MyTask;
 import com.example.larafinal.data.MyTaskTable.MyTaskQuery;
 import com.example.larafinal.data.MyUserTable.MyUser;
 import com.example.larafinal.data.MyUserTable.MyUserQuery;
-import com.example.larafinal.data.triptable.Trip;
-import com.example.larafinal.data.triptable.TripQurery;
+import com.example.larafinal.data.triptable.JourneyQurery;
+import com.example.larafinal.data.triptable.MyJourney;
 
-@Database(entities = {MyUser.class, MyTask.class, Trip.class}, version = 1)
+@Database(entities = {MyUser.class, MyTask.class, MyJourney.class}, version = 1)
 public abstract class Appdatabase extends RoomDatabase {
     public static Appdatabase db;
 
     public abstract MyUserQuery myUserQuery();
 
     public abstract MyTaskQuery myTaskQuery();
-    public abstract TripQurery tripQurery();
+    public abstract JourneyQurery tripQurery();
 
     public static Appdatabase getdb(Context context) {
         if (db == null) {

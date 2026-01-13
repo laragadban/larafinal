@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class loginsc extends AppCompatActivity {
 
@@ -46,7 +45,7 @@ public class loginsc extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(loginsc.this, AddActivity.class);
+                Intent intent = new Intent(loginsc.this, AddJourneyActivity.class);
                 startActivity(intent);
             }
         });

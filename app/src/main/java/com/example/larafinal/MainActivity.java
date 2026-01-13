@@ -10,14 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.example.larafinal.data.triptable.MyTaskAdapter;
-import com.example.larafinal.data.triptable.Trip;
+import com.example.larafinal.data.triptable.MyJourneyAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView listCountries;
     private Button btnContinue;
     private ListView listTrip;
-    private MyTaskAdapter adapter;
+    private MyJourneyAdapter adapter;
 
     // قارات + الدول
     private HashMap<String, ArrayList<String>> mapCountries;
@@ -37,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity); // غيّر الاسم حسب ملف XML
         listTrip = findViewById(R.id.listCountries);
-        adapter = new MyTaskAdapter(this, R.layout.trip_item_layout);
+        adapter = new MyJourneyAdapter(this, R.layout.journey_item_layout);
         listTrip.setAdapter(adapter);
 
         // --------- ربط العناصر ---------

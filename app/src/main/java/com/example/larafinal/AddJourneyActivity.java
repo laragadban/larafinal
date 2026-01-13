@@ -15,7 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class AddActivity extends AppCompatActivity {
+public class AddJourneyActivity extends AppCompatActivity {
 private TextView tvHeader;
 private TextInputEditText etTripName;
 private TextInputEditText etDestination;
@@ -52,6 +52,8 @@ private Button btnSaveTrip;
             return insets;
         });
     }
+
+
 
 
 }

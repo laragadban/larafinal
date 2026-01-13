@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.larafinal.data.triptable.Trip;
+import com.example.larafinal.data.triptable.MyJourney;
 
 import java.util.List;
 
@@ -28,5 +28,5 @@ public interface MyTaskQuery {
     List<MyTask> getTaskByTask(String task);
 
     @Query("SELECT * FROM MyTask")
-    Trip getAllTasks();
+    MyJourney getAllTasks();
 } // ONLY ONE brace should be here at the end.

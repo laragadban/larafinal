@@ -9,15 +9,15 @@ import androidx.room.Update;
 import java.util.List;
 
 @Dao
-public interface TripQurery {
-    @Query("SELECT * FROM Trip")
-    List<Trip> getAll();
+public interface JourneyQurery {
+    @Query("SELECT * FROM MyJourney")
+    List<MyJourney> getAll();
     @Insert
-    void insert(Trip trip);
+    void insert(MyJourney trip);
     @Delete
-    void delete(Trip trip);
+    void delete(MyJourney trip);
     @Update
-    void update(Trip trip);
+    void update(MyJourney trip);
 
 
 }

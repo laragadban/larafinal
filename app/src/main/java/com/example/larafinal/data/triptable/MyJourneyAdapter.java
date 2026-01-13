@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import com.example.larafinal.R;
 
 
-public class MyTaskAdapter extends ArrayAdapter<Trip> {
+public class MyJourneyAdapter extends ArrayAdapter<MyJourney> {
 
     private final int itemLayout;
 
@@ -24,7 +24,7 @@ public class MyTaskAdapter extends ArrayAdapter<Trip> {
      * @param context  קישור להקשר (מסך- אקטיביטי)
      * @param resource עיצוב של פריט שיציג הנתונים של העצם
      */
-    public MyTaskAdapter(@NonNull Context context, int resource) {
+    public MyJourneyAdapter(@NonNull Context context, int resource) {
         super(context, resource);
         this.itemLayout = resource;
     }
@@ -38,11 +38,11 @@ public class MyTaskAdapter extends ArrayAdapter<Trip> {
         TextView tvTripName=vitem.findViewById(R.id.tvTripName);
         TextView tvTripDescription=vitem.findViewById(R.id.tvTripDescription);
 
-         Trip current=getItem(position);
+         MyJourney current=getItem(position);
         //הצגת הנתונים על שדות הרכיב הגרפי
        // ivTripImage.setImageResource(current.getImage());
         tvTripName.setText(current.getTripName());
-        tvTripDescription.setText("Importance:"+current.getTripDescription());
+        tvTripDescription.setText(current.getTripDescription());
 
 
 

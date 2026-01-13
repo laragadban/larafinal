@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Larafinal">
         <activity
-            android:name=".AddActivity"
+            android:name=".AddJourneyActivity"
             android:exported="false" />
         <activity
             android:name=".SignUp"

@@ -38,24 +38,29 @@
 
     <!-- Continue Button -->
 
-    <ListView
+    <Spinner
         android:id="@+id/listCountries"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/light_background"
-        android:divider="#DDDDDD"
-        android:dividerHeight="1dp"
-        android:padding="10dp" />
+        android:layout_height="50dp"
+        android:background="#EFE3E3"
+        android:padding="10dp"
+        android:spinnerMode="dropdown"
+        />
 
-    <Button
-        android:id="@+id/btnContinue"
+    <!-- Search feild -->
+    <SearchView
+        android:id="@+id/search"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginTop="15dp"
-        android:backgroundTint="#03A9F4"
-        android:text="Continue"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:layout_height="wrap_content"
+        android:hint="Search"
+        android:padding="10dp"
+        android:background="#EFE3E3"/>
+
+    <!-- List View -->
+    <ListView
+        android:id="@+id/countryListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>
