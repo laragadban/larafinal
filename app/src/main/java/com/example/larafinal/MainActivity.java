@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
         spinnerCon = findViewById(R.id.spinnerCon);
         tvcou = findViewById(R.id.tvcou);
         search = findViewById(R.id.search);
-        fabAdd=
         countryListView = findViewById(R.id.countryListView);
+
         adapter = new MyJourneyAdapter(this, R.layout.journey_item_layout);
         countryListView.setAdapter(adapter);
 
@@ -121,9 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 2. Fetch the list from the database and add it to the adapter
         // Assuming getAllTasks() returns List<Trip>
-        if (db.myTaskQuery() != null) {
-            adapter.addAll(db.myTaskQuery().getAllTasks());
-        }
+
     }
 
 
