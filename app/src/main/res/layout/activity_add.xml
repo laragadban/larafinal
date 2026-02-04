@@ -13,6 +13,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Trip Name Input -->
         <TextView
             android:id="@+id/tvHeader"
             android:layout_width="wrap_content"
@@ -23,7 +24,6 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <!-- Trip Name Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilTripName"
             android:layout_width="match_parent"

@@ -4,7 +4,9 @@ package com.example.larafinal;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.slider.Slider;
@@ -14,12 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 public class AddJourneyActivity extends AppCompatActivity {
 
     // تعريف العناصر (UI Elements)
+    private TextView tvHeader , tvTripType , tvRating,tvReviews;
     private TextInputEditText etTripName, etCountry, etTown, etAddress, etDescription;
     private RadioGroup rgTripType;
+    private RadioButton rbBusiness, rbLeisure, rbFamily;
     private Slider sliderRating;
     private Button btnSaveTrip;
     private ImageView ivTripImage;
     private RecyclerView rvReviews;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +41,25 @@ public class AddJourneyActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        tvHeader = findViewById(R.id.tvHeader);
+        tvTripType = findViewById(R.id.tvTripType);
+        tvRating = findViewById(R.id.tvRating);
+        tvReviews = findViewById(R.id.tvReviews);
         etTripName = findViewById(R.id.etTripName);
         etCountry = findViewById(R.id.etcountry);
         etTown = findViewById(R.id.etTown);
-        etAddress = findViewById(R.id.etAddress); // تأكد من إصلاح ID المتكرر في XML
+        etAddress = findViewById(R.id.etAddress);
         etDescription = findViewById(R.id.etDescription);
         rgTripType = findViewById(R.id.rgTripType);
+        rbBusiness = findViewById(R.id.rbBusiness);
+        rbLeisure = findViewById(R.id.rbLeisure);
+        rbFamily = findViewById(R.id.rbFamily);
         sliderRating = findViewById(R.id.sliderRating);
         btnSaveTrip = findViewById(R.id.btnSaveTrip);
         ivTripImage = findViewById(R.id.ivTripImage);
         rvReviews = findViewById(R.id.rvReviews);
+
+
     }
 
     private void saveTripData() {
