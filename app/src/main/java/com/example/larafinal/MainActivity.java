@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         // 3. زر الانتقال لشاشة الإضافة
         if (fabAdd != null) {
             fabAdd.setOnClickListener(v -> {
-                Intent intent = new Intent(MainActivity.this, AddTripActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddJourneyActivity.class);
                 startActivity(intent);
             });
         }
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-}
+
 
 
 

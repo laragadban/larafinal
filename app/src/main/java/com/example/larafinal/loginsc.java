@@ -9,6 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toast;
+
+import com.example.larafinal.data.Appdatabase;
+import com.example.larafinal.data.MyUserTable.MyUser;
 
 public class loginsc extends AppCompatActivity {
 
@@ -45,13 +50,30 @@ public class loginsc extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(loginsc.this, AddJourneyActivity.class);
-                startActivity(intent);
+                    validateFields();
             }
         });
 
 
             }
+
+        private boolean validateFields() {
+            String email = et_login_email.getText().toString().trim();
+            String password = et_login_password.getText().toString().trim();
+
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            MyUser myUser = Appdatabase.getdb(this).myUserQuery().checkEmailPassw(email, password);
+            if (myUser != null) {
+                Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(loginsc.this, MainActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            return true;
+        }
 
 
 }

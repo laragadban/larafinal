@@ -127,6 +127,11 @@ public class MyJourney
     public String getTripName() {
         return name;
     }
+    
+    public void setTripName(String tripName) {
+        this.name = tripName;
+    }
+    
     public String getTripDescription() {
         return description;
     }

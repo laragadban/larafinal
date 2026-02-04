@@ -9,6 +9,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.larafinal.data.Appdatabase;
+import com.example.larafinal.data.MyUserTable.MyUser;
+import com.example.larafinal.data.triptable.MyJourney;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputEditText;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,7 +40,7 @@ public class AddJourneyActivity extends AppCompatActivity {
 
         // 2. إعداد مستمع الضغط على زر الحفظ
         btnSaveTrip.setOnClickListener(v -> {
-            saveTripData();
+            validateFields();
         });
     }
 
@@ -62,40 +66,51 @@ public class AddJourneyActivity extends AppCompatActivity {
 
     }
 
-    private void saveTripData() {
-        // استخراج البيانات من الحقول
-        String name = etTripName.getText().toString().trim();
+
+    private boolean validateFields() {
+        boolean isValid = true;
+
+        String tripName = etTripName.getText().toString().trim();
+        if (tripName.isEmpty()) {
+            etTripName.setError("Trip name is required");
+            isValid = false;
+        }
+
         String country = etCountry.getText().toString().trim();
+        if (country.isEmpty()) {
+            etCountry.setError("Country name is required");
+            isValid = false;
+        }
+
         String town = etTown.getText().toString().trim();
+        if (town.isEmpty()) {
+            etTown.setError("Town name is required");
+            isValid = false;
+        }
+
         String address = etAddress.getText().toString().trim();
+        if (address.isEmpty()) {
+            etAddress.setError("Address is required");
+            isValid = false;
+        }
+
         String description = etDescription.getText().toString().trim();
-        float rating = sliderRating.getValue();
-
-        // معرفة نوع الرحلة المختار
-        String tripType = "";
-        int selectedId = rgTripType.getCheckedRadioButtonId();
-        if (selectedId == R.id.rbBusiness) {
-            tripType = "Activity";
-        } else if (selectedId == R.id.rbLeisure) {
-            tripType = "Archaeological site";
-        } else if (selectedId == R.id.rbFamily) {
-            tripType = "Restaurant";
+        if (description.isEmpty()) {
+            etDescription.setError("Description is required");
+            isValid = false;
         }
 
-        // التحقق من أن الحقول الأساسية ليست فارغة
-        if (name.isEmpty() || country.isEmpty()) {
-            Toast.makeText(this, "Please enter Trip Name and Country", Toast.LENGTH_SHORT).show();
-            return;
+        if (isValid) {
+            MyJourney myJourney = new MyJourney();
+            myJourney.setTripName(tripName);
+            myJourney.setCountry(country);
+            myJourney.setTown(town);
+            myJourney.setAddress(address);
+            myJourney.setDescription(description);
+            Appdatabase.getdb(this).tripQurery().insert(myJourney);
+            Toast.makeText(this, "Trip saved successfully", Toast.LENGTH_SHORT).show();
+            finish();
         }
-
-        // هنا يتم إنشاء كائن الـ Entity وحفظه في قاعدة البيانات
-        // مثال (حسب اسم الـ Entity الخاص بك):
-        // MyTask newTrip = new MyTask(name, country, town, address, description, rating, tripType);
-
-        // ملاحظة: الحفظ يجب أن يكون في Background Thread
-        Toast.makeText(this, "Saving: " + name + " in " + country, Toast.LENGTH_LONG).show();
-
-        // إغلاق النشاط بعد الحفظ
-        finish();
+        return isValid;
     }
 }

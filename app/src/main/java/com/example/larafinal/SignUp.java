@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.larafinal.data.Appdatabase;
+import com.example.larafinal.data.MyUserTable.MyUser;
+
 public class SignUp extends AppCompatActivity {
 
     private EditText etName, etEmail, etPassword;
@@ -31,31 +34,36 @@ public class SignUp extends AppCompatActivity {
         // ----------- زر التسجيل -----------
         btnSignup.setOnClickListener(v -> {
 
-            String name = etName.getText().toString().trim();
-            String email = etEmail.getText().toString().trim();
-            String pass = etPassword.getText().toString().trim();
-            String confirme = etCon.getText().toString().trim();
-
-            // فحص أولي للحقول
-            if (name.isEmpty() || email.isEmpty() || pass.isEmpty()) {
-                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (pass.length() < 8) {
-                Toast.makeText(this, "Password must be at least 8 characters", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // هون بتعمل منطق إنشاء الحساب
-            Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show();
-
-            // مثال: ترجع للمكان السابق
-            // finish();
-
-            Intent intent = new Intent(SignUp.this, MainActivity.class);
-            startActivity(intent);
+validateFields();
         });
     }
+        private boolean validateFields() {
+            boolean isValid = true;
+            String name = etName.getText().toString().trim();
+            String email = etEmail.getText().toString().trim();
+            String password = etPassword.getText().toString().trim();
+            String con = etCon.getText().toString().trim();
+
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || con.isEmpty()) {
+                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                isValid = false;
+            }
+
+            if (!password.equals(con)) {
+                Toast.makeText(this, "Password and confirm password not match", Toast.LENGTH_SHORT).show();
+                isValid = false;
+            }
+            if (isValid)
+            {
+                    MyUser myUser = new MyUser();
+                    myUser.setUserName(name);
+                    myUser.setEmail(email);
+                    myUser.setPassword(password);
+                Appdatabase.getdb(this).myUserQuery().insert(myUser);
+                Toast.makeText(this, "User registered successfully", Toast.LENGTH_SHORT).show();
+               finish();
+            }
+            return isValid;
+        }
 }
 

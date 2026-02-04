@@ -25,7 +25,6 @@
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilTripName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp">
@@ -40,7 +39,6 @@
 
         <!-- Destination Input -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ticountry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -55,7 +53,6 @@
 
         <!-- Town Input -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilTown"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -70,7 +67,6 @@
 
         <!-- Address Input -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
@@ -85,7 +81,6 @@
 
         <!-- Description Input -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etDestination"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
