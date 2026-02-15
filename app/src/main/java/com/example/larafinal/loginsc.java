@@ -1,7 +1,5 @@
 package com.example.larafinal;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,11 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toast;
 
 import com.example.larafinal.data.Appdatabase;
 import com.example.larafinal.data.MyUserTable.MyUser;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -30,20 +28,21 @@ public class loginsc extends AppCompatActivity {
     private TextView tv_forgot;
     private Button btnSignUp;
 
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login); // ضع اسم ملف XML الصحيح
+        setContentView(R.layout.activity_login);
 
-        // ---------- ربط العناصر ----------
-        tv_login_title = findViewById(R.id.tv_login_title);
+        // 1. ربط العناصر بالواجهة
         et_login_email = findViewById(R.id.et_login_email);
         et_login_password = findViewById(R.id.et_login_password);
         btnLogin = findViewById(R.id.btnLogin);
-        tv_forgot = findViewById(R.id.tv_forgot);
         btnSignUp = findViewById(R.id.btnSignUp);
+        tv_forgot = findViewById(R.id.tv_forgot);
+        tv_login_title = findViewById(R.id.tv_login_title);
+
+        // 2. زر الانتقال لصفحة التسجيل
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,53 +51,69 @@ public class loginsc extends AppCompatActivity {
             }
         });
 
-        // ---------- زر تسجيل الدخول ----------
+        // 3. زر تسجيل الدخول
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateFields();
+                performLoginLogic();
             }
         });
-
-
     }
 
-        MyUser myUser = Appdatabase.getdb(this).myUserQuery().checkEmailPassw(email, password);
-        if (myUser != null) {
-            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(loginsc.this, MainActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        return true;
-    }
-
-    private boolean validateFields() {
+    private void performLoginLogic() {
         String email = et_login_email.getText().toString().trim();
         String password = et_login_password.getText().toString().trim();
 
+        // فحص إذا كانت الحقول فارغة
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-            return false;
+            return;
         }
 
-        // Firebase authentication
+        // أولاً: تسجيل الدخول عبر Firebase
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull com.google.android.gms.tasks.Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(loginsc.this, "Signing in Succeeded", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(loginsc.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
-                } else {
-                    Toast.makeText(loginsc.this, "Signing in Failed", Toast.LENGTH_SHORT).show();
-                    et_login_email.setError(task.getException().getMessage());
-                }
-            }
-        });
+        auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // إذا نجح Firebase، نتحقق من وجود المستخدم محلياً في Room
+                            checkUserInRoom(email, password);
+                        } else {
+                            // فشل تسجيل الدخول في Firebase
+                            Toast.makeText(loginsc.this, "Authentication Failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
 
-        return true;
+    private void checkUserInRoom(String email, String password) {
+        // الوصول لقاعدة البيانات Room يجب أن يكون في خيط خلفي (Thread) لتجنب الـ Crash
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // جلب المستخدم من قاعدة البيانات
+                MyUser myUser = Appdatabase.getdb(loginsc.this).myUserQuery().checkEmailPassw(email, password);
+
+                // العودة للخيط الرئيسي لتحديث الواجهة (UI)
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (myUser != null) {
+                            Toast.makeText(loginsc.this, "Login successful", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(loginsc.this, MainActivity.class);
+                            startActivity(intent);
+                            finish(); // إغلاق صفحة اللوجين
+                        } else {
+                            // حالة نجاح Firebase ولكن المستخدم غير مسجل في Room محلياً
+                            Toast.makeText(loginsc.this, "Firebase Success, but local user not found", Toast.LENGTH_SHORT).show();
+                            // يمكنك اختيار توجيهه للمعد الرئيسية مباشرة أو اتخاذ إجراء آخر
+                            startActivity(new Intent(loginsc.this, MainActivity.class));
+                            finish();
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 }

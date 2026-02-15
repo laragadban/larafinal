@@ -18,6 +18,7 @@ import com.google.firebase.Firebase;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignUp extends AppCompatActivity {
 
@@ -30,7 +31,6 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up); // غيّر الاسم حسب ملف XML تبعك
-
         // ----------- ربط العناصر -----------
         etName = findViewById(R.id.et_signup_name);
         etEmail = findViewById(R.id.et_signup_email);
@@ -62,7 +62,16 @@ validateFields();
             }
             if (isValid)
             {
+                MyUser myUser = new MyUser();
+                myUser.setUserName(name);
+                myUser.setEmail(email);
+                myUser.setPassword(password);
+                Appdatabase.getdb(this).myUserQuery().insert(myUser);
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+                Toast.makeText(this, "User registered successfully", Toast.LENGTH_SHORT).show();
+                finish();
                     FirebaseAuth auth = FirebaseAuth.getInstance();
                     auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
@@ -78,14 +87,7 @@ validateFields();
                         }
                     });
 
-                    MyUser myUser = new MyUser();
-                    myUser.setUserName(name);
-                    myUser.setEmail(email);
-                    myUser.setPassword(password);
-                Appdatabase.getdb(this).myUserQuery().insert(myUser);
 
-                Toast.makeText(this, "User registered successfully", Toast.LENGTH_SHORT).show();
-               finish();
             }
             return (isValid) ;
             }
