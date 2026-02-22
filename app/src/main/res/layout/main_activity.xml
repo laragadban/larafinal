@@ -79,5 +79,4 @@
         app:rippleColor="#2196F3"
         app:srcCompat="@android:drawable/ic_input_add" />
 
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

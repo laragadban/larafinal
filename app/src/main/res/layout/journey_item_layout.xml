@@ -74,35 +74,6 @@
 
                 /*
 
-                <
-
-                <
-
-                <
-
-                <
-
-                <
-
-                <
-
-                <
-
-                <
-
-                <
-
-                <
-
-                <
-
-                <
-
-                <
-
-                <
-                ✨ Windsurf Command ⭐ >>>>>>>>>>>>>>>> */
-
                 <TextView
                     android:id="@+id/tvReviews"
                     android:layout_width="wrap_content"
@@ -122,25 +93,6 @@
 
                 /*
 
-                <
-
-                <
-
-                <
-
-                <
-
-                <
-
-                <
-
-                <
-
-                <
-
-                <
-
-                <
                 2787b65e-d6f9-4193-a5b9-20b34220127e >>>>>>>>>>> */
             </LinearLayout>
 

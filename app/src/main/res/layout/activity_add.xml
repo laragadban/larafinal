@@ -121,19 +121,19 @@
             android:orientation="vertical">
 
             <RadioButton
+                android:id="@+id/rbLeisure"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:text="Archaeological site" />
+
+            <RadioButton
                 android:id="@+id/rbBusiness"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
 
                 android:text="activity" />
-
-            <RadioButton
-                android:id="@+id/rbLeisure"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:text="Archaeological site" />
 
             <RadioButton
                 android:id="@+id/rbFamily"

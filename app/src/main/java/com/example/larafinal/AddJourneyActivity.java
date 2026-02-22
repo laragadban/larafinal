@@ -2,12 +2,16 @@
 package com.example.larafinal;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.larafinal.data.Appdatabase;
@@ -23,7 +27,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AddJourneyActivity extends AppCompatActivity {
-
+    private static final String TAG = "AddJourney";
+    private ActivityResultLauncher<String> requestReadMediaImagesPermission;
+    private ActivityResultLauncher<String> requestReadMediaVideoPermission;
+    private ActivityResultLauncher<String> requestReadExternalStoragePermission;
     // تعريف العناصر (UI Elements)
     private TextView tvHeader , tvTripType , tvRating,tvReviews;
     private TextInputEditText etTripName, etCountry, etTown, etAddress, etDescription;
@@ -46,8 +53,59 @@ public class AddJourneyActivity extends AppCompatActivity {
         // 2. إعداد مستمع الضغط على زر الحفظ
         btnSaveTrip.setOnClickListener(v -> {
             validateFields();
+            // إذن READ_MEDIA_IMAGES (Android 13+)
+            requestReadMediaImagesPermission =
+                    registerForActivityResult(
+                            new ActivityResultContracts.RequestPermission(),
+                            isGranted -> {
+                                if (isGranted) {
+                                    Log.d(TAG, "READ_MEDIA_IMAGES granted");
+                                    Toast.makeText(this,
+                                            "تم منح إذن قراءة الصور",
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(this,
+                                            "تم رفض إذن قراءة الصور",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+// إذن READ_MEDIA_VIDEO (Android 13+)
+            requestReadMediaVideoPermission =
+                    registerForActivityResult(
+                            new ActivityResultContracts.RequestPermission(),
+                            isGranted -> {
+                                if (isGranted) {
+                                    Log.d(TAG, "READ_MEDIA_VIDEO granted");
+                                    Toast.makeText(this,
+                                            "تم منح إذن قراءة الفيديو",
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(this,
+                                            "تم رفض إذن قراءة الفيديو",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+// إذن READ_EXTERNAL_STORAGE (Android 12 وأقل)
+            requestReadExternalStoragePermission =
+                    registerForActivityResult(
+                            new ActivityResultContracts.RequestPermission(),
+                            isGranted -> {
+                                if (isGranted) {
+                                    Log.d(TAG, "READ_EXTERNAL_STORAGE granted");
+                                    Toast.makeText(this,
+                                            "تم منح إذن قراءة التخزين",
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(this,
+                                            "تم رفض إذن قراءة التخزين",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
         });
     }
+
 
     private void initViews() {
         tvHeader = findViewById(R.id.tvHeader);
