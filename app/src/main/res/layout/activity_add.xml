@@ -149,7 +149,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
-            android:text="Expected Rating" />
+            android:text="Expected Rating"
+            />
 
         <!-- Save Button -->
         <com.google.android.material.slider.Slider
@@ -158,6 +159,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="21dp"
             android:stepSize="1.0"
+            android:textColor="@color/pale_blue"
             android:value="3.0"
             android:valueFrom="0.0"
             android:valueTo="5.0" />

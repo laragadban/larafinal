@@ -78,14 +78,7 @@ public class MainActivity extends AppCompatActivity {
         spinnerCon.setAdapter(continentAdapter);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // تحديث القائمة بالبيانات من قاعدة البيانات (Custom Adapter)
-        loadDataFromDatabase();
-    }
-    //todo get all from firbase
+        //todo get all from firbase
 
     // 5. دالة جلب البيانات من Firebase Firestore
     private void getAllFromFirebase() {

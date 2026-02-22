@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Larafinal">
         <activity
+            android:name=".journey_item"
+            android:exported="false" />
+        <activity
             android:name=".AddJourneyActivity"
             android:exported="false" />
         <activity
@@ -31,7 +34,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>
