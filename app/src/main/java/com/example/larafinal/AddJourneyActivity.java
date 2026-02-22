@@ -15,6 +15,11 @@ import com.example.larafinal.data.MyUserTable.MyUser;
 import com.example.larafinal.data.triptable.MyJourney;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.Firebase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AddJourneyActivity extends AppCompatActivity {
@@ -101,16 +106,62 @@ public class AddJourneyActivity extends AppCompatActivity {
         }
 
         if (isValid) {
+            // تجهيز كائن الرحلة
             MyJourney myJourney = new MyJourney();
             myJourney.setTripName(tripName);
             myJourney.setCountry(country);
             myJourney.setTown(town);
             myJourney.setAddress(address);
             myJourney.setDescription(description);
-            Appdatabase.getdb(this).tripQurery().insert(myJourney);
-            Toast.makeText(this, "Trip saved successfully", Toast.LENGTH_SHORT).show();
-            finish();
+
+            // جلب القيم الإضافية من الـ UI
+            float rating = sliderRating.getValue();
+            myJourney.setRating(String.valueOf(rating));
+            
+            // جلب نوع الرحلة المحدد
+            int selectedRadioButtonId = rgTripType.getCheckedRadioButtonId();
+            if (selectedRadioButtonId == R.id.rbBusiness) {
+                myJourney.setType("Business");
+            } else if (selectedRadioButtonId == R.id.rbLeisure) {
+                myJourney.setType("Leisure");
+            } else if (selectedRadioButtonId == R.id.rbFamily) {
+                myJourney.setType("Family");
+            }
+
+            // استدعاء دالة الحفظ التي تتعامل مع Firebase و Room
+            saveMyJourney(myJourney);
         }
         return isValid;
+    }
+    private void saveMyJourney(MyJourney myJourney) {
+        // Save to Room database
+        Appdatabase.getdb(this).tripQurery().insert(myJourney);
+        
+        // Save to Firebase Firestore
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("journeys")
+                .document(String.valueOf(myJourney.getId()))
+                .set(myJourney)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Trip saved successfully", Toast.LENGTH_SHORT).show();
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error saving trip: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                });
+    }
+
+    private void saveUser(MyUser user) {
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Users");
+        String userId = database.push().getKey();
+        if (userId != null) {
+            database.child(userId).setValue(user)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(this, "User saved successfully", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Error saving user: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    });
+        }
     }
 }

@@ -85,6 +85,50 @@ public class MainActivity extends AppCompatActivity {
         // تحديث القائمة بالبيانات من قاعدة البيانات (Custom Adapter)
         loadDataFromDatabase();
     }
+    //todo get all from firbase
+
+    // 5. دالة جلب البيانات من Firebase Firestore
+    private void getAllFromFirebase() {
+        com.google.firebase.firestore.FirebaseFirestore firestore = com.google.firebase.firestore.FirebaseFirestore.getInstance();
+
+        // الوصول لمجموعة الرحلات (تأكد أن الاسم "Journeys" يطابق ما استخدمته في AddJourneyActivity)
+        firestore.collection("Journeys")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        // تنظيف الـ Adapter قبل إضافة البيانات الجديدة من السحابة
+                        adapter.clear();
+
+                        // تحويل كل وثيقة (Document) إلى كائن MyJourney
+                        for (com.google.firebase.firestore.DocumentSnapshot document : queryDocumentSnapshots) {
+                            com.example.larafinal.data.triptable.MyJourney journey =
+                                    document.toObject(com.example.larafinal.data.triptable.MyJourney.class);
+
+                            if (journey != null) {
+                                adapter.add(journey);
+                            }
+                        }
+                        // تحديث الواجهة
+                        adapter.notifyDataSetChanged();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    android.widget.Toast.makeText(MainActivity.this,
+                            "Error fetching cloud data: " + e.getMessage(), android.widget.Toast.LENGTH_SHORT).show();
+                });
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // جلب البيانات من قاعدة البيانات المحلية (Room)
+        loadDataFromDatabase();
+
+        // جلب البيانات من السحابة (Firebase)
+        getAllFromFirebase();
+    }
+
+
+
 
     private void loadDataFromDatabase() {
         if (db != null && db.tripQurery() != null) {

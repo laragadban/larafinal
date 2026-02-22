@@ -24,7 +24,8 @@ public class SignUp extends AppCompatActivity {
 
     private EditText etName, etEmail, etPassword;
 
-    private EditText etCon; ;
+    private EditText etCon;
+    ;
     private Button btnSignup;
 
     @Override
@@ -41,55 +42,54 @@ public class SignUp extends AppCompatActivity {
         // ----------- زر التسجيل -----------
         btnSignup.setOnClickListener(v -> {
 
-validateFields();
+            validateFields();
         });
     }
-        private boolean validateFields() {
-            boolean isValid = true;
-            String name = etName.getText().toString().trim();
-            String email = etEmail.getText().toString().trim();
-            String password = etPassword.getText().toString().trim();
-            String con = etCon.getText().toString().trim();
 
-            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || con.isEmpty()) {
-                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-                isValid = false;
-            }
+    private boolean validateFields() {
+        boolean isValid = true;
+        String name = etName.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+        String con = etCon.getText().toString().trim();
 
-            if (!password.equals(con)) {
-                Toast.makeText(this, "Password and confirm password not match", Toast.LENGTH_SHORT).show();
-                isValid = false;
-            }
-            if (isValid)
-            {
-                MyUser myUser = new MyUser();
-                myUser.setUserName(name);
-                myUser.setEmail(email);
-                myUser.setPassword(password);
-                Appdatabase.getdb(this).myUserQuery().insert(myUser);
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty() || con.isEmpty()) {
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
 
-                Toast.makeText(this, "User registered successfully", Toast.LENGTH_SHORT).show();
-                finish();
-                    FirebaseAuth auth = FirebaseAuth.getInstance();
-                    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(SignUp.this, "User registered successfully", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-                                Toast.makeText(SignUp.this, "User registered failed", Toast.LENGTH_SHORT).show();
-                                etEmail.setError("Email already exists");
-                            }
+        if (!password.equals(con)) {
+            Toast.makeText(this, "Password and confirm password not match", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
+        if (isValid) {
+            MyUser myUser = new MyUser();
+            myUser.setUserName(name);
+            myUser.setEmail(email);
+            myUser.setPassword(password);
+            Appdatabase.getdb(this).myUserQuery().insert(myUser);
 
-                        }
-                    });
+          //  finish();
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                        Toast.makeText(SignUp.this, "User registered successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(SignUp.this, "User registered failed", Toast.LENGTH_SHORT).show();
+                        etEmail.setError("Email already exists");
+                    }
+
+                }
+            });
 
 
-            }
-            return (isValid) ;
-            }
-
+        }
+        return (isValid);
+    }
 }
+
+
