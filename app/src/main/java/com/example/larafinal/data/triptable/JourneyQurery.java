@@ -20,4 +20,5 @@ public interface JourneyQurery {
     void update(MyJourney trip);
 
 
+
 }

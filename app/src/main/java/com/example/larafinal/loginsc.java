@@ -52,6 +52,7 @@ public class loginsc extends AppCompatActivity {
         });
 
         // 3. زر تسجيل الدخول
+        //ينفذ الكود عند الضغط
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +74,7 @@ public class loginsc extends AppCompatActivity {
         // أولاً: تسجيل الدخول عبر Firebase
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.signInWithEmailAndPassword(email, password)
+                //تنفيذ كود بعد الانتهاء من الكتابة في firebase
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

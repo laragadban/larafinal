@@ -53,7 +53,9 @@ public class SignUp extends AppCompatActivity {
         String password = etPassword.getText().toString().trim();
         String con = etCon.getText().toString().trim();
 
+        //التحقق من ان الايميل والاسم والباسوورد غير فارغيين
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || con.isEmpty()) {
+          // تظهر رسالة نصية وتختفي
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             isValid = false;
         }
@@ -63,6 +65,7 @@ public class SignUp extends AppCompatActivity {
             isValid = false;
         }
         if (isValid) {
+            //انشاء كائن جديد وحفظه
             MyUser myUser = new MyUser();
             myUser.setUserName(name);
             myUser.setEmail(email);
@@ -70,9 +73,11 @@ public class SignUp extends AppCompatActivity {
             Appdatabase.getdb(this).myUserQuery().insert(myUser);
 
           //  finish();
+            //   انشاء مساخدم جديد ومنقدر نعرف متى انتهت العملية هل بنجاح او فشل
             FirebaseAuth auth = FirebaseAuth.getInstance();
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
+
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();

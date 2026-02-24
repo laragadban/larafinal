@@ -26,11 +26,13 @@ public class journey_item extends AppCompatActivity {
 
 
     @Override
+    //تنفذ مرة واحدة عند فتح الشاشة
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        // عرض واجهة ال xml على الشاشة
         setContentView(R.layout.journey_item_layout);
-
+//البحث عن العنصر الذي يحمل ايدي وربطه بمتغير
      ivTripImage = findViewById(R.id.ivTripImage);
      tvTripName = findViewById(R.id.tvTripName);
      tvTripDescription = findViewById(R.id.tvTripDescription);

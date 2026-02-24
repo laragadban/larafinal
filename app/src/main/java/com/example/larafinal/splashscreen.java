@@ -15,10 +15,13 @@ import androidx.core.view.WindowInsetsCompat;
 public class splashscreen extends AppCompatActivity {
 
     @Override
+    // اول منفتح الشاشة
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        //تربط التصميم بالشاشة
         setContentView(R.layout.splashscreen);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.btnlogin1), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey;
     @Entity
     public class MyUser
     {
-        @PrimaryKey(autoGenerate = true)//تحديد الصفة كمفتاح رئيسي والذي يُنتجح بشكل تلقائي
+        @PrimaryKey(autoGenerate = true)//تحديد الصفة كمفتاح رئيسي والذي يُنتجح بشكل القيم تلقائي
         public long keyid;
         @ColumnInfo(name = "full_Name")//اعطاء اسم جديد للعامود-الصفة في الجدول
         public String UserName;
@@ -71,6 +71,8 @@ import androidx.room.PrimaryKey;
                     ", password='" + password + '\'' +
                     ", Confirmpassword='" + Confirmpassword + '\'' +
                     '}';
+
+
         }
     }
 

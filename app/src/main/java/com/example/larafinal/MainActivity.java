@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
     @Override
+    //استدعاء عندما تكون الشاشة فعالة ( لحديث بيانات او تشغيل )
     protected void onResume() {
         super.onResume();
         // جلب البيانات من قاعدة البيانات المحلية (Room)

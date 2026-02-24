@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="SelectedPhotoAccess">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    package="com.example.larafinal">
+
+    <!--
+        قسم الأذونات (Permissions):
+        هنا نحدد الصلاحيات التي يحتاجها التطبيق من نظام أندرويد.
+    -->
+
+    <!-- السماح للتطبيق بالوصول إلى شبكة الإنترنت -->
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <!-- السماح بالوصول إلى الصور  -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+
+    <!-- السماح بالوصول إلى الفيديوهات  -->
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
+
+    <!-- السماح بالقراءة من ذاكرة التخزين الخارجية  -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <!--
+        قسم التطبيق (Application):
+        يحتوي على الإعدادات العامة لكل التطبيق.
+    -->
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,30 +34,52 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Larafinal">
+
+        <!--
+            تعريف الأنشطة (Activities):
+            كل شاشة (Activity) في التطبيق يجب أن تُسجل هنا.
+        -->
+
+        <!-- شاشة تفاصيل الرحلة -->
         <activity
             android:name=".journey_item"
             android:exported="false" />
+
+        <!-- شاشة إضافة رحلة جديدة -->
         <activity
             android:name=".AddJourneyActivity"
             android:exported="false" />
+
+        <!-- شاشة إنشاء حساب جديد -->
         <activity
             android:name=".SignUp"
             android:exported="false" />
+
+        <!-- شاشة تسجيل الدخول -->
         <activity
             android:name=".loginsc"
             android:exported="false" />
+
+        <!--
+            شاشة البداية (Splash Screen):
+            هي الشاشة الأولى التي تظهر عند فتح التطبيق.
+        -->
         <activity
             android:name=".splashscreen"
             android:exported="true">
             <intent-filter>
+                <!-- يحدد أن هذه الشاشة هي النقطة الرئيسية لدخول التطبيق -->
                 <action android:name="android.intent.action.MAIN" />
-
+                <!-- يحدد أن أيقونة التطبيق في القائمة ستفتح هذه الشاشة -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- الشاشة الرئيسية للتطبيق -->
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+
     </application>
 
 </manifest>

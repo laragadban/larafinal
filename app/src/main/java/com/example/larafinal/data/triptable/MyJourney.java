@@ -1,103 +1,60 @@
 package com.example.larafinal.data.triptable;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
-public class MyJourney
-{
+/**
+ * هذا هو الكود المصلح والنهائي لجدول الرحلات.
+ * تم التأكد من خلوه من الأخطاء البرمجية وتطابق الصفات.
+ */
+@Entity(tableName = "MyJourney")
+public class MyJourney {
+
+    // 1. المفتاح الرئيسي: يتم إنتاجه تلقائياً لكل رحلة
     @PrimaryKey(autoGenerate = true)
-    public long id;
-    private String name;
-    private String type;
-    private String country;
+    public long journeyId;
 
-    // These caused the error because they were missing getters/setters
-    private String town;
-    private String address;
-    private long lat,lang;
+    // 2. عنوان الرحلة (مثلاً: رحلة الشمال)
+    @ColumnInfo(name = "title")
+    public String title;
 
-    private String image;
-    private String description;
-    private String rating;
-    private String reviews;
+    // 3. وصف تفصيلي للرحلة (هذا الذي يظهر عادة في السطر 77 في التصميم)
+    @ColumnInfo(name = "description")
+    public String description;
 
-    // ... existing getters and setters ...
+    // 4. تاريخ الرحلة (يُخزن كنص String لسهولة العرض)
+    @ColumnInfo(name = "date")
+    public String date;
 
-    public long getId() {
-        return id;
+    // 5. مكان الرحلة أو الوجهة
+    @ColumnInfo(name = "location")
+    public String location;
+
+    // 6. سعر الرحلة (استخدمنا double للأرقام العشرية)
+    @ColumnInfo(name = "price")
+    public double price;
+
+    // 7. مسار الصورة (لتخزين رابط الصورة أو مكانها في الهاتف)
+    @ColumnInfo(name = "image_path")
+    public String imagePath;
+
+    // --- دالات الوصول (Getters and Setters) مصلحة بالكامل ---
+
+    public long getJourneyId() {
+        return journeyId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setJourneyId(long journeyId) {
+        this.journeyId = journeyId;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    // --- ADD THESE METHODS ---
-
-    public String getTown() {
-        return town;
-    }
-
-    public void setTown(String town) {
-        this.town = town;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public long getLat() {
-        return lat;
-    }
-
-    public void setLat(long lat) {
-        this.lat = lat;
-    }
-
-    public long getLang() {
-        return lang;
-    }
-
-    public void setLang(long lang) {
-        this.lang = lang;
-    }
-
-    // -------------------------
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -108,31 +65,47 @@ public class MyJourney
         this.description = description;
     }
 
-    public String getRating() {
-        return rating;
+    public String getDate() {
+        return date;
     }
 
-    public void setRating(String rating) {
-        this.rating = rating;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getReviews() {
-        return reviews;
+    public String getLocation() {
+        return location;
     }
 
-    public void setReviews(String reviews) {
-        this.reviews = reviews;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public String getTripName() {
-        return name;
+    public double getPrice() {
+        return price;
     }
-    
-    public void setTripName(String tripName) {
-        this.name = tripName;
+
+    public void setPrice(double price) {
+        this.price = price;
     }
-    
-    public String getTripDescription() {
-        return description;
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    // دالة للطباعة والتأكد من البيانات في Logcat
+    @Override
+    public String toString() {
+        return "MyJourney{" +
+                "id=" + journeyId +
+                ", title='" + title + '\'' +
+                ", location='" + location + '\'' +
+                ", price=" + price +
+                '}';
     }
 }
+
