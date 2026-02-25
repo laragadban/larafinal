@@ -4,108 +4,181 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 /**
- * هذا هو الكود المصلح والنهائي لجدول الرحلات.
- * تم التأكد من خلوه من الأخطاء البرمجية وتطابق الصفات.
+ * كلاس يمثل جدول الرحلات داخل قاعدة البيانات باستخدام Room Database.
+ *
+ * @Entity:
+ *  - يعرّف هذا الكلاس كجدول داخل قاعدة البيانات.
+ *  - tableName = "MyJourney" هو اسم الجدول في قاعدة البيانات.
  */
 @Entity(tableName = "MyJourney")
 public class MyJourney {
 
-    // 1. المفتاح الرئيسي: يتم إنتاجه تلقائياً لكل رحلة
+    /**
+     * المفتاح الأساسي (Primary Key) للجدول.
+     * autoGenerate = true يعني أن Room سيقوم بتوليد ID تلقائيًا.
+     */
     @PrimaryKey(autoGenerate = true)
-    public long journeyId;
+    private long journeyId;
 
-    // 2. عنوان الرحلة (مثلاً: رحلة الشمال)
-    @ColumnInfo(name = "title")
-    public String title;
+    /**
+     * اسم الرحلة.
+     * سيتم تخزينه في العمود trip_Name داخل قاعدة البيانات.
+     */
+    @ColumnInfo(name = "trip_Name")
+    private String tripName;
 
-    // 3. وصف تفصيلي للرحلة (هذا الذي يظهر عادة في السطر 77 في التصميم)
-    @ColumnInfo(name = "description")
-    public String description;
+    /**
+     * وصف الرحلة.
+     */
+    @ColumnInfo(name = "trip_description")
+    private String tripDescription;
 
-    // 4. تاريخ الرحلة (يُخزن كنص String لسهولة العرض)
-    @ColumnInfo(name = "date")
-    public String date;
+    /**
+     * عنوان الرحلة أو موقعها.
+     */
+    @ColumnInfo(name = "address")
+    private String address;
 
-    // 5. مكان الرحلة أو الوجهة
-    @ColumnInfo(name = "location")
-    public String location;
+    /**
+     * المسافة إلى الرحلة.
+     */
+    @ColumnInfo(name = "distance")
+    private String distance;
 
-    // 6. سعر الرحلة (استخدمنا double للأرقام العشرية)
-    @ColumnInfo(name = "price")
-    public double price;
+    /**
+     * تقييم الرحلة (Rating).
+     */
+    @ColumnInfo(name = "rating")
+    private String rating;
 
-    // 7. مسار الصورة (لتخزين رابط الصورة أو مكانها في الهاتف)
-    @ColumnInfo(name = "image_path")
-    public String imagePath;
+    /**
+     * عدد المراجعات (Reviews).
+     */
+    @ColumnInfo(name = "reviews")
+    private String reviews;
 
-    // --- دالات الوصول (Getters and Setters) مصلحة بالكامل ---
+    // =============================
+    // ====== Getters & Setters =====
+    // =============================
 
+    /**
+     * إرجاع رقم الرحلة (ID).
+     */
     public long getJourneyId() {
         return journeyId;
     }
 
+    /**
+     * تعيين رقم الرحلة.
+     */
     public void setJourneyId(long journeyId) {
         this.journeyId = journeyId;
     }
 
-    public String getTitle() {
-        return title;
+    /**
+     * إرجاع اسم الرحلة.
+     */
+    public String getTripName() {
+        return tripName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    /**
+     * تعيين اسم الرحلة.
+     */
+    public void setTripName(String tripName) {
+        this.tripName = tripName;
     }
 
-    public String getDescription() {
-        return description;
+    /**
+     * إرجاع وصف الرحلة.
+     */
+    public String getTripDescription() {
+        return tripDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    /**
+     * تعيين وصف الرحلة.
+     */
+    public void setTripDescription(String tripDescription) {
+        this.tripDescription = tripDescription;
     }
 
-    public String getDate() {
-        return date;
+    /**
+     * إرجاع العنوان.
+     */
+    public String getAddress() {
+        return address;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    /**
+     * تعيين العنوان.
+     */
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getLocation() {
-        return location;
+    /**
+     * إرجاع المسافة.
+     */
+    public String getDistance() {
+        return distance;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    /**
+     * تعيين المسافة.
+     */
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 
-    public double getPrice() {
-        return price;
+    /**
+     * إرجاع التقييم.
+     */
+    public String getRating() {
+        return rating;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    /**
+     * تعيين التقييم.
+     */
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    /**
+     * إرجاع عدد المراجعات.
+     */
+    public String getReviews() {
+        return reviews;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    /**
+     * تعيين عدد المراجعات.
+     */
+    public void setReviews(String reviews) {
+        this.reviews = reviews;
     }
 
-    // دالة للطباعة والتأكد من البيانات في Logcat
+    /**
+     * دالة مساعدة تُستخدم أحيانًا في الـ Adapter لإرجاع ID.
+     */
+    public long getId() {
+        return journeyId;
+    }
+
+    /**
+     * دالة لتحويل الكائن إلى نص (تستخدم غالبًا في التصحيح Debugging).
+     */
     @Override
     public String toString() {
         return "MyJourney{" +
                 "id=" + journeyId +
-                ", title='" + title + '\'' +
-                ", location='" + location + '\'' +
-                ", price=" + price +
+                ", name='" + tripName + '\'' +
                 '}';
     }
 }
-

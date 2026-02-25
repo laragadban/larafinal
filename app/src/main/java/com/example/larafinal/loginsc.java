@@ -60,8 +60,9 @@ public class loginsc extends AppCompatActivity {
             }
         });
     }
-
+//دالة منطق تسجيل الدخول
     private void performLoginLogic() {
+        //بحولهن لسترينج وبقيم الفراغات
         String email = et_login_email.getText().toString().trim();
         String password = et_login_password.getText().toString().trim();
 
@@ -74,12 +75,13 @@ public class loginsc extends AppCompatActivity {
         // أولاً: تسجيل الدخول عبر Firebase
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.signInWithEmailAndPassword(email, password)
-                //تنفيذ كود بعد الانتهاء من الكتابة في firebase
+                //بعد الانتهاء من الكتابة  يحفظ في firebase
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
+                    //تنفذ بعد تسجيل الدخول
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // إذا نجح Firebase، نتحقق من وجود المستخدم محلياً في Room
+                           //اذا نجح التسجيل بفحص اذا المستخدم موجود في ال room
                             checkUserInRoom(email, password);
                         } else {
                             // فشل تسجيل الدخول في Firebase

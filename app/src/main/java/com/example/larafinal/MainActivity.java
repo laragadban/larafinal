@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         europe.add("France"); europe.add("Germany");
         mapCountries.put("Europe", europe);
 
+
         ArrayAdapter<String> continentAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, new ArrayList<>(mapCountries.keySet())
         );
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                         adapter.notifyDataSetChanged();
                     }
                 })
+                //عند فشل العملية
                 .addOnFailureListener(e -> {
                     android.widget.Toast.makeText(MainActivity.this,
                             "Error fetching cloud data: " + e.getMessage(), android.widget.Toast.LENGTH_SHORT).show();

@@ -28,4 +28,6 @@ public abstract class Appdatabase extends RoomDatabase {
             return db;
 
     }
+
+    public abstract JourneyQurery getMyJourneyDao();
 }
