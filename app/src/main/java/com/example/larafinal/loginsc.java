@@ -3,121 +3,85 @@ package com.example.larafinal;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.larafinal.data.Appdatabase;
-import com.example.larafinal.data.MyUserTable.MyUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class loginsc extends AppCompatActivity {
+class LoginActivity extends AppCompatActivity {
 
-    private TextView tv_login_title;
-    private EditText et_login_email;
-    private EditText et_login_password;
+    private TextInputEditText et_login_email;
+    private TextInputEditText et_login_password;
     private Button btnLogin;
-    private TextView tv_forgot;
-    private Button btnSignUp;
 
-    @SuppressLint("MissingInflatedId")
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // 1. ربط العناصر بالواجهة
+        // تهيئة Firebase
+        mAuth = FirebaseAuth.getInstance();
+
+        // ربط العناصر من XML
         et_login_email = findViewById(R.id.et_login_email);
         et_login_password = findViewById(R.id.et_login_password);
         btnLogin = findViewById(R.id.btnLogin);
-        btnSignUp = findViewById(R.id.btnSignUp);
-        tv_forgot = findViewById(R.id.tv_forgot);
-        tv_login_title = findViewById(R.id.tv_login_title);
 
-        // 2. زر الانتقال لصفحة التسجيل
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(loginsc.this, SignUp.class);
-                startActivity(intent);
-            }
-        });
-
-        // 3. زر تسجيل الدخول
-        //ينفذ الكود عند الضغط
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                performLoginLogic();
-            }
-        });
+        // عند الضغط على زر تسجيل الدخول
+        btnLogin.setOnClickListener(view -> loginUser());
     }
-//دالة منطق تسجيل الدخول
-    private void performLoginLogic() {
-        //بحولهن لسترينج وبقيم الفراغات
+
+    private void loginUser() {
+
         String email = et_login_email.getText().toString().trim();
         String password = et_login_password.getText().toString().trim();
 
-        // فحص إذا كانت الحقول فارغة
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+        // فحص الحقول
+        if (email.isEmpty()) {
+            et_login_email.setError("Enter your email");
+            et_login_email.requestFocus();
             return;
         }
 
-        // أولاً: تسجيل الدخول عبر Firebase
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.signInWithEmailAndPassword(email, password)
-                //بعد الانتهاء من الكتابة  يحفظ في firebase
+        if (password.isEmpty()) {
+            et_login_password.setError("Enter your password");
+            et_login_password.requestFocus();
+            return;
+        }
+
+        // تسجيل الدخول عبر Firebase
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
-                    //تنفذ بعد تسجيل الدخول
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
                         if (task.isSuccessful()) {
-                           //اذا نجح التسجيل بفحص اذا المستخدم موجود في ال room
-                            checkUserInRoom(email, password);
-                        } else {
-                            // فشل تسجيل الدخول في Firebase
-                            Toast.makeText(loginsc.this, "Authentication Failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-    }
 
-    private void checkUserInRoom(String email, String password) {
-        // الوصول لقاعدة البيانات Room يجب أن يكون في خيط خلفي (Thread) لتجنب الـ Crash
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // جلب المستخدم من قاعدة البيانات
-                MyUser myUser = Appdatabase.getdb(loginsc.this).myUserQuery().checkEmailPassw(email, password);
+                            Toast.makeText(LoginActivity.this,
+                                    "Login Successful",
+                                    Toast.LENGTH_SHORT).show();
 
-                // العودة للخيط الرئيسي لتحديث الواجهة (UI)
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (myUser != null) {
-                            Toast.makeText(loginsc.this, "Login successful", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(loginsc.this, MainActivity.class);
+                            // الانتقال إلى الصفحة الرئيسية
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
-                            finish(); // إغلاق صفحة اللوجين
-                        } else {
-                            // حالة نجاح Firebase ولكن المستخدم غير مسجل في Room محلياً
-                            Toast.makeText(loginsc.this, "Firebase Success, but local user not found", Toast.LENGTH_SHORT).show();
-                            // يمكنك اختيار توجيهه للمعد الرئيسية مباشرة أو اتخاذ إجراء آخر
-                            startActivity(new Intent(loginsc.this, MainActivity.class));
                             finish();
+
+                        } else {
+
+                            Toast.makeText(LoginActivity.this,
+                                    "Authentication Failed: " +
+                                            task.getException().getMessage(),
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 });
-            }
-        }).start();
     }
 }

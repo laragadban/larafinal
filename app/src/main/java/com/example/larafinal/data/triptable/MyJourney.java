@@ -18,47 +18,18 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "MyJourney")
 public class MyJourney {
 
-    /**
-     * المفتاح الأساسي (Primary Key) للجدول.
-     * autoGenerate = true يعني أن Room سيقوم بتوليد ID تلقائيًا.
-     */
     @PrimaryKey(autoGenerate = true)
     private long journeyId;
-
-    /**
-     * اسم الرحلة.
-     * سيتم تخزينه في العمود trip_Name داخل قاعدة البيانات.
-     */
     @ColumnInfo(name = "trip_Name")
     private String tripName;
-
-    /**
-     * وصف الرحلة.
-     */
     @ColumnInfo(name = "trip_description")
     private String tripDescription;
-
-    /**
-     * عنوان الرحلة أو موقعها.
-     */
     @ColumnInfo(name = "address")
     private String address;
-
-    /**
-     * المسافة إلى الرحلة.
-     */
     @ColumnInfo(name = "distance")
     private String distance;
-
-    /**
-     * تقييم الرحلة (Rating).
-     */
     @ColumnInfo(name = "rating")
     private String rating;
-
-    /**
-     * عدد المراجعات (Reviews).
-     */
     @ColumnInfo(name = "reviews")
     private String reviews;
 
