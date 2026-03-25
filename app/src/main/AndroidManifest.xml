@@ -57,7 +57,7 @@
 
         <!-- شاشة تسجيل الدخول -->
         <activity
-            android:name=".loginsc"
+            android:name="LoginActivity"
             android:exported="false" />
 
         <!--

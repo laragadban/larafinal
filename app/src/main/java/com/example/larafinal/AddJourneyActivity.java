@@ -81,9 +81,9 @@ public class AddJourneyActivity extends AppCompatActivity {
 
         // تجهيز كائن الرحلة
         MyJourney myJourney = new MyJourney();
-        myJourney.setTripname(tripName);
+        myJourney.setTripName(tripName);
         myJourney.setAddress(address + ", " + town + ", " + country);
-        myJourney.setTripdescription(description);
+        myJourney.setTripDescription(description);
 
         // جلب التقييم والمسافة (كمثال)
         float ratingValue = sliderRating.getValue();

@@ -35,7 +35,7 @@ public class splashscreen extends AppCompatActivity {
                 e.printStackTrace();
             }
             runOnUiThread(() -> {
-                Intent intent = new Intent(splashscreen.this, loginsc.class);
+                Intent intent = new Intent(splashscreen.this,LoginActivity.class);
                 startActivity(intent);
             });
         }).start();

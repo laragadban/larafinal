@@ -2,6 +2,8 @@ package com.example.larafinal;
 
 import static com.example.larafinal.data.Appdatabase.db;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
 
     private HashMap<String, ArrayList<String>> mapCountries;
     private String selectedContinent = "";
+    private ActivityResultLauncher<String>requestReadMedialMagesPermission;
+    private ActivityResultLauncher<String>requestReadMedialVideoPermission;
+    private ActivityResultLauncher<String>requestReadExternalStoragePermission;
+    {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
