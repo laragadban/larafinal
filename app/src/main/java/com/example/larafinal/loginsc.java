@@ -32,6 +32,7 @@ public class loginsc extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //حدد الملف وببني الكائنات في واجهة التنسيق
         setContentView(R.layout.activity_login);
 
         // 1. ربط العناصر بالواجهة
@@ -67,6 +68,10 @@ public class loginsc extends AppCompatActivity {
         // فحص إذا كانت الحقول فارغة
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            return;//tob stop the method
+        }
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
             return;
         }
 

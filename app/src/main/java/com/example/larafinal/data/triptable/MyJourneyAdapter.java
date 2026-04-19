@@ -20,10 +20,20 @@ public class MyJourneyAdapter extends ArrayAdapter<MyJourney> {
 
     private final int itemLayout;
 
+    /**
+
+     * @param resource رقم ملف الـ Layout الذي يمثل شكل العنصر الواحد
+ *                 داخل القائمة (مثال: journey_item_layout).
+            */
     public MyJourneyAdapter(@NonNull Context context, int resource) {
+
+        // استدعاء Constructor الخاص بالكلاس الأب (ArrayAdapter)
         super(context, resource);
+
+        // تخزين رقم ملف التصميم لاستخدامه لاحقاً في getView()
         this.itemLayout = resource;
     }
+
 
     @Override
     @NonNull

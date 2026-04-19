@@ -1,4 +1,3 @@
-
 package com.example.larafinal;
 
 import android.os.Bundle;
@@ -22,9 +21,28 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * AddJourneyActivity
+ *
+ * <p>
+ * هذه الواجهة مسؤولة عن إضافة رحلة جديدة إلى التطبيق.
+ * </p>
+ *
+ * <p>
+ * الوظائف الرئيسية:
+ * </p>
+ * <ul>
+ *     <li>إدخال بيانات الرحلة من المستخدم.</li>
+ *     <li>التحقق من صحة الحقول.</li>
+ *     <li>حفظ البيانات في قاعدة البيانات المحلية (Room).</li>
+ *     <li>حفظ البيانات في Firebase Firestore.</li>
+ * </ul>
+ *
+ * @version 1.0
+ */
 public class AddJourneyActivity extends AppCompatActivity {
 
-    // تعريف العناصر (UI Elements)
+    // ================== عناصر الواجهة ==================
     private TextView tvHeader , tvTripType , tvRating,tvReviews;
     private TextInputEditText etTripName, etCountry, etTown, etAddress, etDescription;
     private RadioGroup rgTripType;
@@ -34,21 +52,29 @@ public class AddJourneyActivity extends AppCompatActivity {
     private ImageView ivTripImage;
     private RecyclerView rvReviews;
 
-
+    /**
+     * يتم استدعاؤها عند إنشاء الـ Activity.
+     * تقوم بتحميل الواجهة وربط العناصر
+     * وتحديد حدث الضغط على زر الحفظ.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        // 1. ربط العناصر بالكود (Initialization)
+        // ربط عناصر الواجهة
         initViews();
 
-        // 2. إعداد مستمع الضغط على زر الحفظ
+        // حدث الضغط على زر الحفظ
         btnSaveTrip.setOnClickListener(v -> {
             validateFields();
         });
     }
 
+    /**
+     * ربط عناصر الواجهة الرسومية (XML)
+     * مع المتغيرات داخل الكود.
+     */
     private void initViews() {
         tvHeader = findViewById(R.id.tvHeader);
         tvTripType = findViewById(R.id.tvTripType);
@@ -67,12 +93,26 @@ public class AddJourneyActivity extends AppCompatActivity {
         btnSaveTrip = findViewById(R.id.btnSaveTrip);
         ivTripImage = findViewById(R.id.ivTripImage);
         rvReviews = findViewById(R.id.rvReviews);
-
-
     }
 
-
+    /**
+     * التحقق من صحة بيانات الإدخال.
+     *
+     * <p>
+     * يتم التأكد من أن جميع الحقول المطلوبة غير فارغة.
+     * في حال كانت البيانات صحيحة يتم:
+     * </p>
+     *
+     * <ul>
+      *     <li>تعبئة بيانات الرحلة.</li>
+     *     <li>تحديد نوع الرحلة (Business / Leisure / Family).</li>
+     *     <li>استدعاء دالة الحفظ.</li>
+     * </ul>
+     *
+     * @return true إذا كانت البيانات صحيحة، false إذا كان هناك خطأ.
+     */
     private boolean validateFields() {
+
         boolean isValid = true;
 
         String tripName = etTripName.getText().toString().trim();
@@ -106,7 +146,8 @@ public class AddJourneyActivity extends AppCompatActivity {
         }
 
         if (isValid) {
-            // تجهيز كائن الرحلة
+
+            // إنشاء كائن الرحلة
             MyJourney myJourney = new MyJourney();
             myJourney.setTripName(tripName);
             myJourney.setCountry(country);
@@ -114,11 +155,11 @@ public class AddJourneyActivity extends AppCompatActivity {
             myJourney.setAddress(address);
             myJourney.setDescription(description);
 
-            // جلب القيم الإضافية من الـ UI
+            // إضافة التقييم
             float rating = sliderRating.getValue();
             myJourney.setRating(String.valueOf(rating));
-            
-            // جلب نوع الرحلة المحدد
+
+            // تحديد نوع الرحلة من RadioGroup
             int selectedRadioButtonId = rgTripType.getCheckedRadioButtonId();
             if (selectedRadioButtonId == R.id.rbBusiness) {
                 myJourney.setType("Business");
@@ -128,39 +169,68 @@ public class AddJourneyActivity extends AppCompatActivity {
                 myJourney.setType("Family");
             }
 
-            // استدعاء دالة الحفظ التي تتعامل مع Firebase و Room
+            // حفظ الرحلة
             saveMyJourney(myJourney);
         }
+
         return isValid;
     }
+
+    /**
+     * حفظ الرحلة في:
+     * 1- قاعدة البيانات المحلية (Room).
+     * 2- Firebase Firestore.
+     *
+     * @param myJourney كائن الرحلة المراد حفظه.
+     */
     private void saveMyJourney(MyJourney myJourney) {
-        // Save to Room database
+
+        // الحفظ في Room
         Appdatabase.getdb(this).tripQurery().insert(myJourney);
-        
-        // Save to Firebase Firestore
+
+        // الحفظ في Firebase Firestore
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("journeys")
                 .document(String.valueOf(myJourney.getId()))
                 .set(myJourney)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Trip saved successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,
+                            "Trip saved successfully",
+                            Toast.LENGTH_SHORT).show();
                     finish();
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Error saving trip: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(this,
+                            "Error saving trip: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
                 });
     }
 
+    /**
+     * حفظ مستخدم في Firebase Realtime Database.
+     *
+     * @param user كائن المستخدم المراد حفظه.
+     */
     private void saveUser(MyUser user) {
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Users");
+
+        DatabaseReference database =
+                FirebaseDatabase.getInstance().getReference("Users");
+
         String userId = database.push().getKey();
+
         if (userId != null) {
-            database.child(userId).setValue(user)
+
+            database.child(userId)
+                    .setValue(user)
                     .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(this, "User saved successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this,
+                                "User saved successfully",
+                                Toast.LENGTH_SHORT).show();
                     })
                     .addOnFailureListener(e -> {
-                        Toast.makeText(this, "Error saving user: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(this,
+                                "Error saving user: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
                     });
         }
     }

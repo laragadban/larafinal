@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // , يحدد ملف ال MAIN ACTIVIT
+        //بني كائن في واجهة التنسيق
         setContentView(R.layout.main_activity);
 
         // 1. ربط العناصر
@@ -111,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
     @Override
+    //تنفذ دائما عند فتح الشاشة
     protected void onResume() {
         super.onResume();
         // جلب البيانات من قاعدة البيانات المحلية (Room)
