@@ -21,6 +21,7 @@ public class MyJourney
     private String description;
     private String rating;
     private String reviews;
+    private String key;
 
     // ... existing getters and setters ...
 
@@ -134,5 +135,13 @@ public class MyJourney
     
     public String getTripDescription() {
         return description;
+    }
+
+    public void setKey(String   key) {
+        this.key = key;
+    }
+
+    public String getKey() {
+        return key;
     }
 }

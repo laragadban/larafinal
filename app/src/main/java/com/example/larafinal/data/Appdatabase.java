@@ -27,7 +27,7 @@ import com.example.larafinal.data.triptable.MyJourney;
  * </ul>
  * لضمان وجود نسخة واحدة فقط من قاعدة البيانات في التطبيق.
  */
-@Database(entities = {MyUser.class, MyJourney.class}, version = 2)
+@Database(entities = {MyUser.class, MyJourney.class}, version = 3)
 public abstract class Appdatabase extends RoomDatabase {
 
     /**
@@ -75,7 +75,7 @@ public abstract class Appdatabase extends RoomDatabase {
                             Appdatabase.class,
                             "appdatabase"
                     )
-                    .allowMainThreadQueries()
+                    .allowMainThreadQueries().fallbackToDestructiveMigration()
                     .build();
         }
 

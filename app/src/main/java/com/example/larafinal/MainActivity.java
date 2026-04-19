@@ -2,6 +2,7 @@ package com.example.larafinal;
 
 import static com.example.larafinal.data.Appdatabase.db;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +13,16 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.larafinal.data.triptable.MyJourney;
 import com.example.larafinal.data.triptable.MyJourneyAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,44 +91,46 @@ public class MainActivity extends AppCompatActivity {
         //todo get all from firbase
 
     // 5. دالة جلب البيانات من Firebase Firestore
-    private void getAllFromFirebase() {
-        com.google.firebase.firestore.FirebaseFirestore firestore = com.google.firebase.firestore.FirebaseFirestore.getInstance();
 
-        // الوصول لمجموعة الرحلات (تأكد أن الاسم "Journeys" يطابق ما استخدمته في AddJourneyActivity)
-        firestore.collection("Journeys")
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (!queryDocumentSnapshots.isEmpty()) {
-                        // تنظيف الـ Adapter قبل إضافة البيانات الجديدة من السحابة
-                        adapter.clear();
 
-                        // تحويل كل وثيقة (Document) إلى كائن MyJourney
-                        for (com.google.firebase.firestore.DocumentSnapshot document : queryDocumentSnapshots) {
-                            com.example.larafinal.data.triptable.MyJourney journey =
-                                    document.toObject(com.example.larafinal.data.triptable.MyJourney.class);
-
-                            if (journey != null) {
-                                adapter.add(journey);
-                            }
-                        }
-                        // تحديث الواجهة
-                        adapter.notifyDataSetChanged();
+        private void getAllFromFirebase(MyJourneyAdapter adapter) {
+            //عنوان قاعدة البيانات
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            // عنوان مجموعة المعطيات داخل قاعدة البيانات
+            DatabaseReference myRef = database.getReference("Journeys");
+//إضافة listener مما يسبب الإصغاء لكل تغيير حتلنة عرض المعطيات//
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override//دالة معالج حدث تقوم بتلقى نسخة عن كل المعطيات عند أي تغيير
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    adapter.clear();//حذف كل المعطيات بالوسيط
+                    for (DataSnapshot taskSnapshot : snapshot.getChildren()) {
+                        //  استخراج كل المعطيات على وتحويلها لكائن ملائم//
+                        MyJourney task = taskSnapshot.getValue(MyJourney.class);
+                        adapter.add(task);//اضافة كل معطى (كائن) للمنسق
                     }
-                })
-                .addOnFailureListener(e -> {
-                    android.widget.Toast.makeText(MainActivity.this,
-                            "Error fetching cloud data: " + e.getMessage(), android.widget.Toast.LENGTH_SHORT).show();
-                });
-    }
+                    adapter.notifyDataSetChanged();//اعلام المنسق بالتغيير
+                    Toast.makeText(MainActivity.this, "Data fetched successfully", Toast.LENGTH_SHORT).show();
+
+
+                }
+                @Override//بحالة فشل استخراج المعطيات
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(MainActivity.this, "Failed to fetch data", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+
+
     @Override
     //تنفذ دائما عند فتح الشاشة
     protected void onResume() {
         super.onResume();
         // جلب البيانات من قاعدة البيانات المحلية (Room)
-        loadDataFromDatabase();
+        //loadDataFromDatabase();
 
         // جلب البيانات من السحابة (Firebase)
-        getAllFromFirebase();
+        getAllFromFirebase(adapter);
     }
 
 
