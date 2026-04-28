@@ -1,5 +1,6 @@
 package com.example.larafinal;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -7,6 +8,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -22,6 +24,7 @@ public class journey_item extends AppCompatActivity {
      private TextView tvReviews;
 
      private TextView tvReviewsCount;
+
 
 
 

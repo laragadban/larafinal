@@ -21,30 +21,36 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class loginsc extends AppCompatActivity {
 
-    private TextView tv_login_title;
     private EditText et_login_email;
     private EditText et_login_password;
     private Button btnLogin;
-    private TextView tv_forgot;
+    private TextView tvAsk;
     private Button btnSignUp;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //حدد الملف وببني الكائنات في واجهة التنسيق
+        // حدد الملف وببني الكائنات في واجهة التنسيق
         setContentView(R.layout.activity_login);
 
         // 1. ربط العناصر بالواجهة
-        et_login_email = findViewById(R.id.et_login_email);
-        et_login_password = findViewById(R.id.et_login_password);
+        et_login_email = findViewById(R.id.etEmail);
+        et_login_password = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        btnSignUp = findViewById(R.id.btnSignUp);
-        tv_forgot = findViewById(R.id.tv_forgot);
-        tv_login_title = findViewById(R.id.tv_login_title);
+        btnSignUp = findViewById(R.id.btn_signup);
+        tvAsk = findViewById(R.id.tvAsk);
 
-        // 2. زر الانتقال لصفحة التسجيل
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
+//        // 2. زر الانتقال لصفحة التسجيل
+//        btnSignUp.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(loginsc.this, SignUp.class);
+//                startActivity(intent);
+//            }
+//        });
+
+        tvAsk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(loginsc.this, SignUp.class);
@@ -58,7 +64,7 @@ public class loginsc extends AppCompatActivity {
             public void onClick(View v) {
                 performLoginLogic();
             }
-        });
+        }); // تم إغلاق الـ Listener بشكل صحيح هنا
     }
 
     private void performLoginLogic() {
@@ -68,8 +74,10 @@ public class loginsc extends AppCompatActivity {
         // فحص إذا كانت الحقول فارغة
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-            return;//tob stop the method
+            return;
         }
+
+        // فحص صيغة الإيميل
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
             return;
@@ -89,7 +97,7 @@ public class loginsc extends AppCompatActivity {
                             Toast.makeText(loginsc.this, "Authentication Failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
-                });
+                }); // تم إغلاق الـ addOnCompleteListener هنا
     }
 
     private void checkUserInRoom(String email, String password) {
@@ -112,8 +120,8 @@ public class loginsc extends AppCompatActivity {
                         } else {
                             // حالة نجاح Firebase ولكن المستخدم غير مسجل في Room محلياً
                             Toast.makeText(loginsc.this, "Firebase Success, but local user not found", Toast.LENGTH_SHORT).show();
-                            // يمكنك اختيار توجيهه للمعد الرئيسية مباشرة أو اتخاذ إجراء آخر
-                            startActivity(new Intent(loginsc.this, MainActivity.class));
+                            Intent intent = new Intent(loginsc.this, MainActivity.class);
+                            startActivity(intent);
                             finish();
                         }
                     }

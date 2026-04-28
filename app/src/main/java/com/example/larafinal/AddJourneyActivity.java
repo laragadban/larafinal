@@ -1,9 +1,12 @@
 package com.example.larafinal;
 
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +36,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 
 /**
  * AddJourneyActivity
@@ -92,37 +100,32 @@ public class AddJourneyActivity extends AppCompatActivity {
         });
         requestReadMediaImagesPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
             if (isGranted) {
-                Log.d(TAG, "READ_MEDIA_IMAGES permission granted");
                 Toast.makeText(this, "تم منح إذن قراءة الصور", Toast.LENGTH_SHORT).show();
                 // يمكنك الآن المتابعة بالعملية التي تتطلب هذا الإذن
             } else {
-                Log.d(TAG, "READ_MEDIA_IMAGES permission denied");
                 Toast.makeText(this, "تم رفض إذن قراءة الصور", Toast.LENGTH_SHORT).show();
                 // التعامل مع حالة رفض الإذن
             }
         });
         requestReadMediaVideoPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
             if (isGranted) {
-                Log.d(TAG, "READ_MEDIA_VIDEO permission granted");
                 Toast.makeText(this, "تم منح إذن قراءة الفيديو", Toast.LENGTH_SHORT).show();
                 // يمكنك الآن المتابعة بالعملية التي تتطلب هذا الإذن
             } else {
-                Log.d(TAG, "READ_MEDIA_VIDEO permission denied");
                 Toast.makeText(this, "تم رفض إذن قراءة الفيديو", Toast.LENGTH_SHORT).show();
                 // التعامل مع حالة رفض الإذن
             }
         });
         requestReadExternalStoragePermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
             if (isGranted) {
-                Log.d(TAG, "READ_EXTERNAL_STORAGE permission granted");
                 Toast.makeText(this, "تم منح إذن قراءة التخزين الخارجي", Toast.LENGTH_SHORT).show();
                 // يمكنك الآن المتابعة بالعملية التي تتطلب هذا الإذن
             } else {
-                Log.d(TAG, "READ_EXTERNAL_STORAGE permission denied");
                 Toast.makeText(this, "تم رفض إذن قراءة التخزين الخارجي", Toast.LENGTH_SHORT).show();
                 // التعامل مع حالة رفض الإذن
             }
         });
+        checkAndRequestPermissions();
 //استدعاء دالة الفحص (سيتم تطبيقها لاحقا
     }
 
@@ -134,7 +137,6 @@ public class AddJourneyActivity extends AppCompatActivity {
                     != PackageManager.PERMISSION_GRANTED) {
                 requestReadMediaImagesPermission.launch(android.Manifest.permission.READ_MEDIA_IMAGES);
             } else {
-                Log.d(TAG, "READ_MEDIA_IMAGES permission already granted");
                 Toast.makeText(this, "إذن قراءة الصور ممنوح بالفعل", Toast.LENGTH_SHORT).show();
             }
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { // أندرويد 10 و 11 و 12// على هذه الإصدارات، READ_EXTERNAL_STORAGE له سلوك مختلف
@@ -145,7 +147,6 @@ public class AddJourneyActivity extends AppCompatActivity {
                     != PackageManager.PERMISSION_GRANTED) {
                 requestReadExternalStoragePermission.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE);
             } else {
-                Log.d(TAG, "READ_EXTERNAL_STORAGE permission already granted (for older versions)");
                 Toast.makeText(this, "إذن قراءة التخزين ممنوح بالفعل (للإصدارات الأقدم)", Toast.LENGTH_SHORT).show();
             }
         } else { // أندرويد 9 والإصدارات الأقدم
@@ -153,7 +154,6 @@ public class AddJourneyActivity extends AppCompatActivity {
                     != PackageManager.PERMISSION_GRANTED) {
                 requestReadExternalStoragePermission.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE);
             } else {
-                Log.d(TAG, "READ_EXTERNAL_STORAGE permission already granted (for older versions)");
                 Toast.makeText(this, "إذن قراءة التخزين ممنوح بالفعل (للإصدارات الأقدم)", Toast.LENGTH_SHORT).show();
             }
         }
@@ -165,7 +165,6 @@ public class AddJourneyActivity extends AppCompatActivity {
                     != PackageManager.PERMISSION_GRANTED) {
                 requestReadMediaVideoPermission.launch(android.Manifest.permission.READ_MEDIA_VIDEO);
             } else {
-                Log.d(TAG, "READ_MEDIA_VIDEO permission already granted");
                 Toast.makeText(this, "إذن قراءة الفيديو ممنوح بالفعل", Toast.LENGTH_SHORT).show();
             }
         }
@@ -178,7 +177,11 @@ public class AddJourneyActivity extends AppCompatActivity {
                     ivSelectedImage.setVisibility(View.VISIBLE);
                 }
             }
+
+
         });
+
+
 
         ivSelectedImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,9 +192,6 @@ public class AddJourneyActivity extends AppCompatActivity {
 
 
     }
-
-
-
 
 
 
@@ -278,6 +278,8 @@ public class AddJourneyActivity extends AppCompatActivity {
             myJourney.setTown(town);
             myJourney.setAddress(address);
             myJourney.setDescription(description);
+            if (selectedImageUri!=null)
+                myJourney.setImage(convertImageToString(selectedImageUri));
 
             // إضافة التقييم
             float rating = sliderRating.getValue();
@@ -335,9 +337,38 @@ public class AddJourneyActivity extends AppCompatActivity {
             });
 
 
-
-
     }
+
+
+    /**
+     * Converts an image Uri to a Base64 string.
+     *
+     * @param uri The Uri of the image to convert.
+     * @return The Base64 string representation of the image.
+     */
+    public String convertImageToString(Uri uri) {
+        InputStream inputStream = null;
+        String imageString = null;
+        // تحتوي هذه الدالة على وظيفة تحويل الصورة من مكان التخزين المؤقت إلى نص بنموذج Base64 ليتم تخزينه في قاعدة البيانات، وهذا يتيح للبرنامج عرض الصورة من قاعدة البيانات في وقت لاحق بدون الحاجة إلى فتح الصورة من جهاز المستخدم.
+        try {
+            inputStream = getContentResolver().openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            if (bitmap == null) {
+                Toast.makeText(this, "Failed to process image", Toast.LENGTH_SHORT).show();
+                return null;
+            }
+            // Compress image to keep Base64 string within reasonable limit
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 40, outputStream);
+            byte[] imageBytes = outputStream.toByteArray();
+            imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+            return imageString;
+        } catch (FileNotFoundException e) {
+            Toast.makeText(this, "Failed file not found", Toast.LENGTH_SHORT).show();
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
 }

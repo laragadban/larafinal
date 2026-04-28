@@ -3,11 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-
 
     <application
         android:allowBackup="true"
@@ -18,6 +16,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Larafinal">
+        <activity
+            android:name=".itemTripScedule"
+            android:exported="false" />
+        <activity
+            android:name=".TripSchedule"
+            android:exported="false" />
+        <activity
+            android:name=".Map"
+            android:exported="false" />
         <activity
             android:name=".journey_item"
             android:exported="false" />

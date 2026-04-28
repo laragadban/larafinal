@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_marginBottom="8dp"
+    android:background="@android:color/white"
+    android:elevation="2dp">
+
+    <!-- 🔢 رقم الترتيب -->
+    <TextView
+        android:id="@+id/tvOrder"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="1"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:background="#3F51B5"/>
+
+    <!-- 🖼 الصورة -->
+    <ImageView
+        android:id="@+id/ivTripImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="10dp"
+        android:scaleType="centerCrop"
+        android:src="@android:drawable/ic_menu_gallery"/>
+
+    <!-- 📋 المعلومات -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginStart="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvTripName"
+            android:text="Trip Name"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tvLocation"
+            android:text="Country - Town"
+            android:textSize="14sp"
+            android:textColor="#666"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

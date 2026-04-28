@@ -81,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
         europe.add("France"); europe.add("Germany");
         mapCountries.put("Europe", europe);
 
+        ArrayList<String> Africa = new ArrayList<>();
+        Africa.add("Egypt"); Africa.add("Nigeria");
+        mapCountries.put("Africa", Africa);
+
         ArrayAdapter<String> continentAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, new ArrayList<>(mapCountries.keySet())
         );
@@ -150,8 +154,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-
-
 
 
 
