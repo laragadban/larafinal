@@ -1,6 +1,9 @@
 package com.example.larafinal.data.triptable;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,11 +70,32 @@ public class MyJourneyAdapter extends ArrayAdapter<MyJourney> {
             // if (current.getImage() != 0) {
             //     ivTripImage.setImageResource(current.getImage());
             // } else {
-            ivTripImage.setImageResource(R.drawable.ic_launcher_background); // صورة افتراضية
+            if (current.getImage()!=null && current.getImage().length()>0)
+                ivTripImage.setImageBitmap(stringToBitmap(current.getImage()));
+            else
+            ivTripImage.setImageResource(R.drawable.ic_launcher_foreground); // صورة افتراضية
             // }
         }
 
         // 5. إرجاع الواجهة بعد تعبئتها بالبيانات ليتم عرضها في الـ ListView
         return vitem;
     }
+
+    /**
+     * Decodes the image string and returns the corresponding Bitmap object.
+     *
+     * @param imageString the image string to decode
+     * @return the decoded Bitmap object
+     */
+    private Bitmap stringToBitmap(String imageString) {
+        if (imageString == null || imageString.isEmpty()) return null;
+        try {
+            byte[] decodedString = Base64.decode(imageString, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+
 }

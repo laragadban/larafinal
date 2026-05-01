@@ -33,7 +33,12 @@ public class loginsc extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // حدد الملف وببني الكائنات في واجهة التنسيق
         setContentView(R.layout.activity_login);
-
+        if (FirebaseAuth.getInstance().getCurrentUser()!=null)
+        {
+            Intent intent = new Intent(loginsc.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
         // 1. ربط العناصر بالواجهة
         et_login_email = findViewById(R.id.etEmail);
         et_login_password = findViewById(R.id.etPassword);

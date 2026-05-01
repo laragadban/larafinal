@@ -12,10 +12,9 @@ public class MyJourney
     private String type;
     private String country;
 
-    // These caused the error because they were missing getters/setters
     private String town;
     private String address;
-    private long lat,lang;
+    private double lat, lang;
 
     private String image;
     private String description;
@@ -23,7 +22,11 @@ public class MyJourney
     private String reviews;
     private String key;
 
-    // ... existing getters and setters ...
+    // --- 1. الـ Constructor الفارغ (ضروري جداً لـ Firebase) ---
+    public MyJourney() {
+    }
+
+    // --- 2. جميع الـ Getters والـ Setters ---
 
     public long getId() {
         return id;
@@ -57,8 +60,6 @@ public class MyJourney
         this.country = country;
     }
 
-    // --- ADD THESE METHODS ---
-
     public String getTown() {
         return town;
     }
@@ -75,23 +76,21 @@ public class MyJourney
         this.address = address;
     }
 
-    public long getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(long lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public long getLang() {
+    public double getLang() {
         return lang;
     }
 
-    public void setLang(long lang) {
+    public void setLang(double lang) {
         this.lang = lang;
     }
-
-    // -------------------------
 
     public String getImage() {
         return image;
@@ -125,23 +124,25 @@ public class MyJourney
         this.reviews = reviews;
     }
 
-    public String getTripName() {
-        return name;
-    }
-    
-    public void setTripName(String tripName) {
-        this.name = tripName;
-    }
-    
-    public String getTripDescription() {
-        return description;
+    public String getKey() {
+        return key;
     }
 
-    public void setKey(String   key) {
+    public void setKey(String key) {
         this.key = key;
     }
 
-    public String getKey() {
-        return key;
+    // --- دوال إضافية للتوافق مع الكود القديم ---
+
+    public String getTripName() {
+        return name;
+    }
+
+    public void setTripName(String tripName) {
+        this.name = tripName;
+    }
+
+    public String getTripDescription() {
+        return description;
     }
 }

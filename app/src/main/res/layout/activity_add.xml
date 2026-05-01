@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -23,34 +22,34 @@
                 android:id="@+id/tvHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add New Journey"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                android:textColor="#1A1A1A"
                 android:layout_marginBottom="24dp"
-                android:fontFamily="sans-serif-black"/>
+                android:fontFamily="sans-serif-black"
+                android:text="Add New Journey"
+                android:textColor="#1A1A1A"
+                android:textSize="26sp"
+                android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:layout_marginBottom="20dp"
                 app:cardCornerRadius="15dp"
-                app:cardElevation="2dp"
-                android:layout_marginBottom="20dp">
+                app:cardElevation="2dp">
 
                 <ImageView
                     android:id="@+id/ivTripImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@android:drawable/ic_menu_gallery"
-                    android:background="#E0E0E0" />
+                    android:background="#E0E0E0"
+                    android:scaleType="fitCenter"
+                    android:src="@android:drawable/ic_menu_gallery" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tap to select photo"
                     android:layout_gravity="center"
-                    android:textColor="#757575"/>
+                    android:text="Tap to select photo"
+                    android:textColor="#757575" />
             </androidx.cardview.widget.CardView>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -96,10 +95,10 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="8dp"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusBottomStart="12dp">
+                    android:layout_weight="1"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopStart="12dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etTown"
@@ -113,8 +112,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp">
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusTopEnd="12dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etAddress"
@@ -123,6 +122,68 @@
                         android:hint="Address" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+
+            <!-- GPS Location Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="GPS Location"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopStart="12dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etLatitude"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Latitude"
+                        android:inputType="numberDecimal|numberSigned" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusTopEnd="12dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etLongitude"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Longitude"
+                        android:inputType="numberDecimal|numberSigned" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnGetLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="Get Current Location"
+                android:textAllCaps="false"
+                android:textColor="#009688"
+                android:background="?attr/selectableItemBackground"
+                android:drawableStart="@android:drawable/ic_menu_mylocation"
+                android:paddingStart="16dp"
+                android:gravity="start|center_vertical" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -147,20 +208,36 @@
                 android:id="@+id/tvTripType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="Trip Type"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp"/>
+                android:textStyle="bold" />
 
             <RadioGroup
                 android:id="@+id/rgTripType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
 
-                <RadioButton android:id="@+id/rbBusiness" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Business" android:layout_marginEnd="10dp"/>
-                <RadioButton android:id="@+id/rbLeisure" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Leisure" android:layout_marginEnd="10dp"/>
-                <RadioButton android:id="@+id/rbFamily" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Family"/>
+                <RadioButton
+                    android:id="@+id/rbBusiness"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="Business" />
+
+                <RadioButton
+                    android:id="@+id/rbLeisure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="Leisure" />
+
+                <RadioButton
+                    android:id="@+id/rbFamily"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Family" />
             </RadioGroup>
 
             <TextView
@@ -168,57 +245,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rating"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <com.google.android.material.slider.Slider
                 android:id="@+id/sliderRating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:stepSize="0.5"
                 android:valueFrom="0.0"
                 android:valueTo="5.0"
-                android:stepSize="0.5"
                 app:thumbColor="#4DB6AC"
                 app:trackColorActive="#4DB6AC" />
-
-            <TextView
-                android:id="@+id/tvReviews"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Reviews"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSaveTrip"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="30dp"
-
                 android:text="Save Journey"
                 android:textAllCaps="false"
                 android:textColor="#009688"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvReviews"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false" >
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnContinue"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@android:color/transparent"
-                    android:text="Continue"
-                    android:textAllCaps="false"
-                    android:textColor="#4DB6AC"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </androidx.recyclerview.widget.RecyclerView>
 
         </LinearLayout>
     </ScrollView>
