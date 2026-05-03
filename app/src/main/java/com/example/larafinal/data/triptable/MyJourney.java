@@ -3,8 +3,10 @@ package com.example.larafinal.data.triptable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class MyJourney
+public class MyJourney implements Serializable
 {
     @PrimaryKey(autoGenerate = true)
     public long id;
@@ -15,7 +17,6 @@ public class MyJourney
     private String town;
     private String address;
     private double lat, lang;
-
     private String image;
     private String description;
     private String rating;

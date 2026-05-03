@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -19,9 +20,8 @@ public class journey_item extends AppCompatActivity {
     private ImageView ivTripImage;
     private TextView tvTripName;
     private TextView tvTripDescription;
-    private TextView tvRating;
+    private TextView tvRating; // تم ربطه بـ tvRatingValue
     private RatingBar ratingBar;
-    private TextView tvReviews;
     private TextView tvReviewsCount;
 
     @Override
@@ -33,7 +33,7 @@ public class journey_item extends AppCompatActivity {
         // 1. ربط العناصر بالواجهة
         initViews();
 
-        // 2. استقبال البيانات القادمة من الصفحة السابقة (Adapter)
+        // 2. استقبال البيانات القادمة من الصفحة السابقة
         getAndSetIntentData();
 
         // 3. ضبط الحواف (الـ Padding) للواجهة
@@ -44,38 +44,33 @@ public class journey_item extends AppCompatActivity {
         ivTripImage = findViewById(R.id.ivTripImage);
         tvTripName = findViewById(R.id.tvTripName);
         tvTripDescription = findViewById(R.id.tvTripDescription);
-        tvRating = findViewById(R.id.tvRating);
+        tvRating = findViewById(R.id.tvRatingValue); // المعرف الصحيح من الـ XML
         ratingBar = findViewById(R.id.ratingBar);
-        //tvReviews = findViewById(R.id.tvReviews);
         tvReviewsCount = findViewById(R.id.tvReviewsCount);
     }
 
     private void getAndSetIntentData() {
-        // التحقق مما إذا كانت هناك بيانات مرسلة عبر الـ Intent
         if (getIntent().hasExtra("name")) {
-            // جلب النصوص
             String name = getIntent().getStringExtra("name");
             String description = getIntent().getStringExtra("description");
             String ratingValue = getIntent().getStringExtra("rating");
             String reviews = getIntent().getStringExtra("reviews");
             String imageBase64 = getIntent().getStringExtra("image");
 
-            // عرض النصوص في العناصر
             tvTripName.setText(name);
             tvTripDescription.setText(description);
             tvRating.setText(ratingValue);
-            tvReviews.setText(reviews);
-            tvReviewsCount.setText("(" + reviews + " Reviews)");
+            tvReviewsCount.setText("(" + (reviews != null ? reviews : "0") + " Reviews)");
 
-            // ضبط النجوم في الـ RatingBar
             try {
-                float ratingFloat = Float.parseFloat(ratingValue);
-                ratingBar.setRating(ratingFloat);
+                if (ratingValue != null) {
+                    float ratingFloat = Float.parseFloat(ratingValue);
+                    ratingBar.setRating(ratingFloat);
+                }
             } catch (Exception e) {
                 ratingBar.setRating(0);
             }
 
-            // تحويل الصورة من نص Base64 إلى Bitmap وعرضها
             if (imageBase64 != null && !imageBase64.isEmpty()) {
                 ivTripImage.setImageBitmap(decodeBase64ToBitmap(imageBase64));
             }
@@ -84,7 +79,6 @@ public class journey_item extends AppCompatActivity {
         }
     }
 
-    // دالة مساعدة لتحويل النص (Base64) إلى صورة (Bitmap)
     private Bitmap decodeBase64ToBitmap(String base64Str) {
         try {
             byte[] decodedBytes = Base64.decode(base64Str, Base64.DEFAULT);
@@ -96,10 +90,14 @@ public class journey_item extends AppCompatActivity {
     }
 
     private void setupWindowInsets() {
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        // تأكد أن الـ root view في XML يحتوي على android:id="@+id/main"
+        View mainView = findViewById(R.id.main);
+        if (mainView != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(mainView, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+                return insets;
+            });
+        }
     }
 }

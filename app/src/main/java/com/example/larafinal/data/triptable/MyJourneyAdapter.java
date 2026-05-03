@@ -1,6 +1,7 @@
 package com.example.larafinal.data.triptable;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.larafinal.Activiydetails;
 import com.example.larafinal.R;
 
 /**
@@ -53,6 +55,7 @@ public class MyJourneyAdapter extends ArrayAdapter<MyJourney> {
         TextView tvTripName = vitem.findViewById(R.id.tvTripName);
         TextView tvTripDescription = vitem.findViewById(R.id.tvTripDescription);
 
+
         // 3. الحصول على بيانات الرحلة الحالية بناءً على موقعها في القائمة
         MyJourney current = getItem(position);
 
@@ -72,10 +75,21 @@ public class MyJourneyAdapter extends ArrayAdapter<MyJourney> {
             // } else {
             if (current.getImage()!=null && current.getImage().length()>0)
                 ivTripImage.setImageBitmap(stringToBitmap(current.getImage()));
+
             else
-            ivTripImage.setImageResource(R.drawable.ic_launcher_foreground); // صورة افتراضية
-            // }
+
+                (ivTripImage.setImageResource(R.drawable.ic_launcher_foreground); // صورة افتراضية
+            //}
         }
+        ivTripImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), Activiydetails.class);
+
+                intent.putExtra("jr",current) ;
+                getContext().startActivity(intent);
+            }
+        });
 
         // 5. إرجاع الواجهة بعد تعبئتها بالبيانات ليتم عرضها في الـ ListView
         return vitem;

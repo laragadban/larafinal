@@ -25,8 +25,7 @@ public class loginsc extends AppCompatActivity {
     private EditText et_login_password;
     private Button btnLogin;
     private TextView tvAsk;
-    private Button btnSignUp;
-
+   //private Button btnSignUp;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,7 @@ public class loginsc extends AppCompatActivity {
         et_login_email = findViewById(R.id.etEmail);
         et_login_password = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        btnSignUp = findViewById(R.id.btn_signup);
+       // btnSignUp = findViewById(R.id.btn_signup);
         tvAsk = findViewById(R.id.tvAsk);
 
 //        // 2. زر الانتقال لصفحة التسجيل

@@ -18,7 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Larafinal">
-
+        <activity
+            android:name=".Activiydetails"
+            android:exported="false" />
         <activity
             android:name=".AiChat"
             android:exported="false" />

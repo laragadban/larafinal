@@ -2,45 +2,56 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F9F8"
-    tools:context=".TripSchedule">
+    android:background="#F8FAFB">
 
-    <!-- AppBar للتصميم العلوي -->
+    <!-- الهيدر العلوي -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="@android:color/white"
         app:elevation="0dp">
-        <androidx.appcompat.widget.Toolbar
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My Favorite Places"
-                android:textSize="22sp"
+                android:text="Today's Plan"
+                android:textSize="14sp"
+                android:textColor="#009688"
                 android:textStyle="bold"
+                android:textAllCaps="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daily Schedule"
+                android:textSize="28sp"
                 android:textColor="#1A1A1A"
                 android:fontFamily="sans-serif-black"/>
-        </androidx.appcompat.widget.Toolbar>
+        </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- RecyclerView fills the remaining space automatically with the behavior -->
+    <!-- قائمة الفعاليات -->
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/lvDailyEvents"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:paddingHorizontal="16dp"
         android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/journey_item_layout" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-    <!-- Floating Action Button to add new items -->
+    <!-- زر إضافة فعالية جديدة -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAdd"
+        android:id="@+id/fabAddEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
