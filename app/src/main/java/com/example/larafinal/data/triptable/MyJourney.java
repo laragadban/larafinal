@@ -4,152 +4,125 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
 /**
- * كلاس يمثل جدول الرحلات داخل قاعدة البيانات باستخدام Room Database.
- *
- * @Entity:
- *  - يعرّف هذا الكلاس كجدول داخل قاعدة البيانات.
- *  - tableName = "MyJourney" هو اسم الجدول في قاعدة البيانات.
+  كلاس (Entity) يمثل جدول الرحلات في قاعدة بيانات
+
  */
-@Entity(tableName = "MyJourney")
+@Entity(tableName = "MyJourney") // تعريف الكلاس كجدول في قاعدة البيانات باسم MyJourney
 public class MyJourney {
 
+    /**
+     * المعرف الفريد (Primary Key) للرحلة.
+     * autoGenerate = true تعني أن قاعدة البيانات ستعطي رقمًا تلقائيًا لكل رحلة جديدة.
+     */
     @PrimaryKey(autoGenerate = true)
     private long journeyId;
+
+    /**
+     * اسم الرحلة.
+     * @ColumnInfo تستخدم لتحديد اسم العمود في قاعدة البيانات بشكل مختلف عن اسم المتغير في الجافا.
+     */
     @ColumnInfo(name = "trip_Name")
     private String tripName;
+
+    /**
+     * وصف الرحلة (تفاصيل حول المكان أو التجربة).
+     */
     @ColumnInfo(name = "trip_description")
     private String tripDescription;
+
+    /**
+     * العنوان الجغرافي للرحلة (مثلاً: الدولة، المدينة، الشارع).
+     */
     @ColumnInfo(name = "address")
     private String address;
+
+    /**
+     * المسافة المقطوعة أو مسافة الرحلة.
+     */
     @ColumnInfo(name = "distance")
     private String distance;
+
+    /**
+     * التقييم الخاص بالرحلة (مثلاً: من 1 إلى 5 نجوم).
+     */
     @ColumnInfo(name = "rating")
     private String rating;
+
+    /**
+     * المراجعات أو التعليقات المكتوبة حول هذه الرحلة.
+     */
     @ColumnInfo(name = "reviews")
     private String reviews;
 
-    // =============================
-    // ====== Getters & Setters =====
-    // =============================
+    // --- الدوال الأساسية (Getters & Setters) ---
+    // ملاحظة: مكتبة Room تحتاج لهذه الدوال للوصول إلى المتغيرات الخاصة (private).
 
-    /**
-     * إرجاع رقم الرحلة (ID).
-     */
     public long getJourneyId() {
         return journeyId;
     }
 
-    /**
-     * تعيين رقم الرحلة.
-     */
     public void setJourneyId(long journeyId) {
         this.journeyId = journeyId;
     }
 
-    /**
-     * إرجاع اسم الرحلة.
-     */
     public String getTripName() {
         return tripName;
     }
 
-    /**
-     * تعيين اسم الرحلة.
-     */
     public void setTripName(String tripName) {
         this.tripName = tripName;
     }
 
-    /**
-     * إرجاع وصف الرحلة.
-     */
     public String getTripDescription() {
         return tripDescription;
     }
 
-    /**
-     * تعيين وصف الرحلة.
-     */
     public void setTripDescription(String tripDescription) {
         this.tripDescription = tripDescription;
     }
 
-    /**
-     * إرجاع العنوان.
-     */
     public String getAddress() {
         return address;
     }
 
-    /**
-     * تعيين العنوان.
-     */
     public void setAddress(String address) {
         this.address = address;
     }
 
-    /**
-     * إرجاع المسافة.
-     */
     public String getDistance() {
         return distance;
     }
 
-    /**
-     * تعيين المسافة.
-     */
     public void setDistance(String distance) {
         this.distance = distance;
     }
 
-    /**
-     * إرجاع التقييم.
-     */
     public String getRating() {
         return rating;
     }
 
-    /**
-     * تعيين التقييم.
-     */
     public void setRating(String rating) {
         this.rating = rating;
     }
 
-    /**
-     * إرجاع عدد المراجعات.
-     */
     public String getReviews() {
         return reviews;
     }
 
-    /**
-     * تعيين عدد المراجعات.
-     */
     public void setReviews(String reviews) {
         this.reviews = reviews;
     }
 
     /**
-     * دالة مساعدة تُستخدم أحيانًا في الـ Adapter لإرجاع ID.
-     */
-    public long getId() {
-        return journeyId;
-    }
-
-    /**
-     * دالة لتحويل الكائن إلى نص (تستخدم غالبًا في التصحيح Debugging).
+     * دالة مساعدة لطباعة بيانات الكائن بشكل نصي (مفيدة في الـ Log).
      */
     @Override
     public String toString() {
         return "MyJourney{" +
                 "id=" + journeyId +
                 ", name='" + tripName + '\'' +
+                ", rating='" + rating + '\'' +
                 '}';
     }
 }

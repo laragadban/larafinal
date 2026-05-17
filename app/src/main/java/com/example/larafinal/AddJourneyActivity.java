@@ -18,19 +18,41 @@ import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * كلاس النشاط (Activity) الخاص بإضافة رحلة جديدة.
+ * يحتوي هذا المقطع على تعريف كافة عناصر واجهة المستخدم (UI Elements)
+ * التي يتفاعل معها المستخدم لإدخال بيانات الرحلة.
+ */
 public class AddJourneyActivity extends AppCompatActivity {
+
+    // علامة (Tag) تُستخدم في عمليات التتبع (Debugging) وتسجيل الأحداث (Logs).
     private static final String TAG = "AddJourney";
 
-    // تعريف العناصر (UI Elements)
-    private TextView tvHeader, tvTripType, tvRating, tvReviews;
-    private TextInputEditText etTripName, etCountry, etTown, etAddress, etDescription;
-    private RadioGroup rgTripType;
-    private RadioButton rbBusiness, rbLeisure, rbFamily;
-    private Slider sliderRating;
-    private Button btnSaveTrip;
-    private ImageView ivTripImage;
-    private RecyclerView rvReviews;
+    // --- تعريف عناصر الواجهة (UI Elements) ---
 
+    // نصوص العناوين والتسميات (Labels) لعرض معلومات ثابتة أو متغيرة للمستخدم.
+    private TextView tvHeader, tvTripType, tvRating, tvReviews;
+
+    // حقول إدخال النصوص المطورة (Material Design) لاستقبال بيانات الرحلة (الاسم، الدولة، المدينة، العنوان، والوصف).
+    private TextInputEditText etTripName, etCountry, etTown, etAddress, etDescription;
+
+    // مجموعة أزرار اختيار (RadioGroup) تتيح للمستخدم تحديد "نوع الرحلة" من خيار واحد فقط.
+    private RadioGroup rgTripType;
+
+    // أزرار الاختيار الفردية المتاحة ضمن مجموعة نوع الرحلة (عمل، ترفيه، أو عائلية).
+    private RadioButton rbBusiness, rbLeisure, rbFamily;
+
+    // شريط منزلق (Slider) يتيح للمستخدم اختيار تقييم الرحلة بشكل مرئي.
+    private Slider sliderRating;
+
+    // الزر المسؤول عن تنفيذ عملية حفظ كافة البيانات المدخلة في قواعد البيانات (Local & Cloud).
+    private Button btnSaveTrip;
+
+    // عنصر لعرض صورة الرحلة المختارة.
+    private ImageView ivTripImage;
+
+    // قائمة متطورة (RecyclerView) تُستخدم لعرض المراجعات أو التعليقات المرتبطة بالرحلة.
+    private RecyclerView rvReviews;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

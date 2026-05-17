@@ -19,7 +19,7 @@ class LoginActivity extends AppCompatActivity {
     private TextInputEditText et_login_email;
     private TextInputEditText et_login_password;
     private Button btnLogin;
-
+// كائن نظام التحقق من الهوية الخاص بـ Firebase
     private FirebaseAuth mAuth;
 
     @Override
