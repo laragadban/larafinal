@@ -5,75 +5,135 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+/**
+ * فئة (Class) تمثل جدول المستخدمين داخل قاعدة البيانات Room
+ * كل كائن من هذا النوع يمثل مستخدم واحد
+ */
+@Entity
+public class MyUser {
 
-    //Entity = Table =جدول
-//عندما نريد ان نتعامل مع هذه الفئة كجدول معطيات
     /**
-     * فئة تمثل المستعمل
+     * المفتاح الرئيسي للجدول
+     * يتم توليده تلقائياً لكل مستخدم جديد
      */
-    @Entity
-    public class MyUser
-    {
-        @PrimaryKey(autoGenerate = true)//تحديد الصفة كمفتاح رئيسي والذي يُنتجح بشكل تلقائي
-        public long keyid;
-        @ColumnInfo(name = "full_Name")//اعطاء اسم جديد للعامود-الصفة في الجدول
-        public String UserName;
-        public String email;//بحالة لم يتم اعطاء اسم للعامود يكون اسم الصفه هو اسم العامود
-        public String password;
-        public String Confirmpassword;
+    @PrimaryKey(autoGenerate = true)
+    public long keyid;
 
-        public long getKeyid() {
-            return keyid;
-        }
+    /**
+     * اسم المستخدم الكامل
+     * تم تغيير اسم العمود داخل قاعدة البيانات إلى full_Name
+     */
+    @ColumnInfo(name = "full_Name")
+    public String UserName;
 
-        public void setKeyid(long keyid) {
-            this.keyid = keyid;
-        }
+    /**
+     * البريد الإلكتروني للمستخدم
+     * اسم العمود سيكون نفسه اسم المتغير
+     */
+    public String email;
 
-        public String getUserName() {
-            return UserName;
-        }
+    /**
+     * كلمة المرور الخاصة بالمستخدم
+     */
+    public String password;
 
-        public void setUserName(String userName) {
-            UserName = userName;
-        }
+    /**
+     * تأكيد كلمة المرور
+     */
+    public String Confirmpassword;
 
-        public String getEmail() {
-            return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-
-        public String getConfirmpassword() {
-            return Confirmpassword;
-        }
-
-        public void setConfirmpassword(String confirmpassword) {
-            Confirmpassword = confirmpassword;
-        }
-
-        @Override
-        public String toString() {
-            return "MyUser{" +
-                    "keyid=" + keyid +
-                    ", UserName='" + UserName + '\'' +
-                    ", email='" + email + '\'' +
-                    ", password='" + password + '\'' +
-                    ", Confirmpassword='" + Confirmpassword + '\'' +
-                    '}';
-        }
+    /**
+     * إرجاع رقم المفتاح الرئيسي
+     * @return keyid
+     */
+    public long getKeyid() {
+        return keyid;
     }
 
+    /**
+     * تعيين رقم المفتاح الرئيسي
+     * @param keyid رقم المستخدم
+     */
+    public void setKeyid(long keyid) {
+        this.keyid = keyid;
+    }
 
+    /**
+     * إرجاع اسم المستخدم
+     * @return UserName
+     */
+    public String getUserName() {
+        return UserName;
+    }
 
+    /**
+     * تعيين اسم المستخدم
+     * @param userName اسم المستخدم الجديد
+     */
+    public void setUserName(String userName) {
+        UserName = userName;
+    }
 
+    /**
+     * إرجاع البريد الإلكتروني
+     * @return email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * تعيين البريد الإلكتروني
+     * @param email البريد الإلكتروني الجديد
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * إرجاع كلمة المرور
+     * @return password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * تعيين كلمة المرور
+     * @param password كلمة المرور الجديدة
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * إرجاع تأكيد كلمة المرور
+     * @return Confirmpassword
+     */
+    public String getConfirmpassword() {
+        return Confirmpassword;
+    }
+
+    /**
+     * تعيين تأكيد كلمة المرور
+     * @param confirmpassword تأكيد كلمة المرور
+     */
+    public void setConfirmpassword(String confirmpassword) {
+        Confirmpassword = confirmpassword;
+    }
+
+    /**
+     * تحويل بيانات المستخدم إلى نص
+     * تستخدم غالباً للفحص والطباعة
+     */
+    @Override
+    public String toString() {
+        return "MyUser{" +
+                "keyid=" + keyid +
+                ", UserName='" + UserName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", Confirmpassword='" + Confirmpassword + '\'' +
+                '}';
+    }
+}
