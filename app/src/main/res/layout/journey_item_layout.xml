@@ -14,14 +14,31 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- صورة المكان -->
-        <ImageView
-            android:id="@+id/ivTripImage"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:background="#E0E0E0"
-            android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_menu_gallery" />
+            android:layout_height="180dp">
+
+            <ImageView
+                android:id="@+id/ivTripImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#E0E0E0"
+                android:scaleType="centerCrop"
+                android:src="@android:drawable/ic_menu_gallery" />
+
+            <!-- زر الإعجاب (قلب) -->
+            <ImageButton
+                android:id="@+id/btnLike"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="12dp"
+                android:background="@drawable/white_circle_bg"
+                android:contentDescription="Like"
+                android:padding="8dp"
+                android:src="@android:drawable/btn_star_big_off"
+                app:tint="@color/white" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -96,10 +113,8 @@
                     android:layout_height="wrap_content"
                     android:text="(128 Reviews)"
                     android:textColor="#7A7A7A"
-                    android:textSize="12sp" />
-
+                    android:textSize="12sp"/>
             </LinearLayout>
-
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

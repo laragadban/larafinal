@@ -1,6 +1,7 @@
 package com.example.larafinal;
 
 import android.os.Bundle;
+import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +9,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.larafinal.data.triptable.MyJourneyAdapter;
+
 public class itemTripScedule extends AppCompatActivity {
+    private ListView countryListView;
+    private MyJourneyAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

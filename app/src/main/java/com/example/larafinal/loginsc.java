@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class loginsc extends AppCompatActivity {
 
+    //تعريف المتغيرات
     private EditText et_login_email;
     private EditText et_login_password;
     private Button btnLogin;
@@ -53,7 +54,7 @@ public class loginsc extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
-
+//  معالج
         tvAsk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

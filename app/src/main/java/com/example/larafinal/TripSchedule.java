@@ -2,7 +2,6 @@ package com.example.larafinal;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,7 +48,7 @@ public class TripSchedule extends AppCompatActivity {
 
 
         // 3. إعداد الـ Adapter
-        adapter = new MyJourneyAdapter(this, R.layout.journey_item_layout);
+        adapter = new MyJourneyAdapter(this, R.layout.journey_item_layout, displayList);
         listView.setAdapter(adapter);
 
         // 4. زر إضافة رحلة جديدة

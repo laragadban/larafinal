@@ -12,62 +12,46 @@ import com.example.larafinal.data.triptable.JourneyQurery;
 import com.example.larafinal.data.triptable.MyJourney;
 
 /**
- * Appdatabase
+ * كلاس قاعدة البيانات الرئيسية للتطبيق باستخدام Room
  *
- * <p>
- * يمثل هذا الكلاس قاعدة البيانات المحلية للتطبيق باستخدام Room.
- * </p>
- *
- * <p>
- * يحتوي على كيانين (Entities):
- * </p>
- * <ul>
- *     <li>MyUser : جدول المستخدمين.</li>
- *     <li>MyJourney : جدول الرحلات.</li>
- * </ul>
- * لضمان وجود نسخة واحدة فقط من قاعدة البيانات في التطبيق.
+ * يحتوي على:
+ * - جدول المستخدمين MyUser
+ * - جدول الرحلات MyJourney
  */
 @Database(entities = {MyUser.class, MyJourney.class}, version = 4)
 public abstract class Appdatabase extends RoomDatabase {
 
     /**
-     * متغير ثابت لتخزين نسخة قاعدة البيانات (Singleton Instance).
+     * متغير ثابت لتخزين نسخة واحدة من قاعدة البيانات
+     * Singleton Pattern
      */
     public static Appdatabase db;
 
     /**
-     * توفير الوصول إلى عمليات جدول المستخدمين (DAO).
+     * دالة للوصول إلى استعلامات المستخدمين
      *
-     * @return كائن MyUserQuery الذي يحتوي على أوامر الإدخال والاستعلام.
+     * @return كائن MyUserQuery
      */
     public abstract MyUserQuery myUserQuery();
 
     /**
-     * توفير الوصول إلى عمليات جدول الرحلات (DAO).
+     * دالة للوصول إلى استعلامات الرحلات
      *
-     * @return كائن JourneyQurery الذي يحتوي على أوامر إدارة الرحلات.
+     * @return كائن JourneyQurery
      */
     public abstract JourneyQurery tripQurery();
 
     /**
-     * الحصول على نسخة قاعدة البيانات.
+     * دالة لإنشاء أو إرجاع قاعدة البيانات
      *
-     * <p>
-     * في حال لم يتم إنشاء قاعدة البيانات مسبقاً،
-     * يتم بناؤها باستخدام Room.databaseBuilder.
-     * </p>
-     *
-     * <p>
-     * allowMainThreadQueries():
-     * تسمح بتنفيذ عمليات قاعدة البيانات على الـ Main Thread
-     * (غير مستحسن في التطبيقات الكبيرة لأنه قد يسبب بطء في الواجهة).
-     * </p>
-     *
-     * @param context سياق التطبيق (Application Context).
-     * @return نسخة واحدة من قاعدة البيانات.
+     * @param context سياق التطبيق
+     * @return نسخة قاعدة البيانات
      */
     public static Appdatabase getdb(Context context) {
 
+        /**
+         * إذا لم يتم إنشاء قاعدة البيانات مسبقاً
+         */
         if (db == null) {
 
             db = Room.databaseBuilder(
@@ -75,10 +59,26 @@ public abstract class Appdatabase extends RoomDatabase {
                             Appdatabase.class,
                             "appdatabase"
                     )
-                    .allowMainThreadQueries().fallbackToDestructiveMigration()
+
+                    /**
+                     * السماح بتنفيذ أوامر قاعدة البيانات
+                     * على الـ Main Thread
+                     */
+                    .allowMainThreadQueries()
+
+                    /**
+                     * حذف وإعادة إنشاء قاعدة البيانات
+                     * عند تغيير رقم الإصدار Version
+                     */
+                    .fallbackToDestructiveMigration()
+
+                    /**
+                     * إنشاء قاعدة البيانات
+                     */
                     .build();
         }
 
+        // إرجاع قاعدة البيانات
         return db;
     }
 }

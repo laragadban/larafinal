@@ -1,143 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F4F8"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".AiByFirbase.SmartTaskActivity">
 
-    <!-- الهيدر المطور: تصميم نظيف وعصري -->
-    <com.google.android.material.appbar.AppBarLayout
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:elevation="0dp">
+        android:text="Smart Task Assistant"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
 
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <View
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:background="@drawable/online_indicator"
-                    android:layout_marginEnd="12dp"/>
-
-                <TextView
-                    android:id="@+id/Tvai"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-black"
-                    android:text="AI Assistant"
-                    android:textColor="#1A1A1A"
-                    android:textSize="22sp" />
-            </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <!-- منطقة الدردشة: استخدام ScrollView مع أنيميشن سلس -->
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:padding="16dp"
-        android:clipToPadding="false"
-        android:layout_marginBottom="100dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- فقاعة رد الذكاء الاصطناعي بتصميم زجاجي -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="20dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:id="@+id/nsvResponse"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="I'm ready to help you plan your journey. What task do you want me to organize for you?"
-                        android:textColor="#2D3436"
-                        android:textSize="17sp"
-                        android:lineSpacingMultiplier="1.4"
-                        android:fontFamily="sans-serif-medium" />
-
-                    <!-- شريط تحميل أنيق يظهر تحت النص -->
-                    <ProgressBar
-                        android:id="@+id/pbLoading"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="4dp"
-                        android:layout_marginTop="16dp"
-                        android:indeterminate="true"
-                        android:visibility="gone"
-                        android:indeterminateTint="#009688" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-
-    <!-- شريط الإدخال العائم (Floating Input Bar) -->
-    <androidx.cardview.widget.CardView
+    <EditText
+        android:id="@+id/etTaskTopic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="12dp"
-        app:cardBackgroundColor="#FFFFFF">
+        android:hint="Enter task title or topic (e.g., Fix the car)"
+        android:minHeight="48dp" />
 
-        <LinearLayout
+
+    <Button
+        android:id="@+id/btnSuggestSteps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Suggest Steps with AI" />
+
+
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:visibility="visible" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp">
+
+
+        <TextView
+            android:id="@+id/tvAiResponse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="6dp">
+            android:textSize="16sp"
+            android:textIsSelectable="true" />
+    </ScrollView>
 
-            <EditText
-                android:id="@+id/etTaskTopic"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Explain your task..."
-                android:background="@null"
-                android:padding="16dp"
-                android:textColor="#1A1A1A"
-                android:textSize="16sp" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnSuggestSteps"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fabCustomSize="48dp"
-                android:src="@android:drawable/ic_menu_send"
-                app:backgroundTint="#009688"
-                app:tint="@android:color/white"
-                app:elevation="0dp"
-                app:pressedTranslationZ="0dp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
