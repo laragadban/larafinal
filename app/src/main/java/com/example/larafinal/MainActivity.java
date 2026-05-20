@@ -1,23 +1,20 @@
 package com.example.larafinal;
 
-import static com.example.larafinal.data.Appdatabase.db;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.example.larafinal.data.triptable.MyJourney;
 import com.example.larafinal.data.triptable.MyJourneyAdapter;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView countryListView;
     private MyJourneyAdapter adapter;
     private FloatingActionButton fabAdd;
+    private MaterialButton btnAiChat;
+    private boolean isHeartRed = true;
 
     // القائمة التي تخزن كل البيانات القادمة من Firebase (المرجع)
     private List<MyJourney> allJourneysList = new ArrayList<>();
@@ -53,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         search = findViewById(R.id.search);
         countryListView = findViewById(R.id.countryListView);
         fabAdd = findViewById(R.id.fabAdd);
+        btnAiChat = findViewById(R.id.btnAiChat);
         spinnerCon = findViewById(R.id.spinnerCon);
 
         // 1. إعداد الـ Adapter وربطه بـ displayList
@@ -75,9 +75,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Heart button click listener - changes color when clicked
         if (fabAdd != null) {
             fabAdd.setOnClickListener(v -> {
-                Intent intent = new Intent(MainActivity.this, AddJourneyActivity.class);
+                isHeartRed = !isHeartRed;
+                if (isHeartRed) {
+                    fabAdd.setBackgroundTintList(getResources().getColorStateList(android.R.color.holo_red_light));
+                } else {
+                    fabAdd.setBackgroundTintList(getResources().getColorStateList(android.R.color.holo_purple));
+                }
+            });
+        }
+
+        // AI Chat button click listener - navigates to AiChat activity
+        if (btnAiChat != null) {
+            btnAiChat.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, AiChat.class);
                 startActivity(intent);
             });
         }

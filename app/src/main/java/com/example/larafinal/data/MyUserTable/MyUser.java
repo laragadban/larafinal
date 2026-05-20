@@ -41,6 +41,8 @@ public class MyUser {
      * تأكيد كلمة المرور
      */
     public String Confirmpassword;
+    public String key;
+
 
     /**
      * إرجاع رقم المفتاح الرئيسي
@@ -112,6 +114,14 @@ public class MyUser {
      */
     public String getConfirmpassword() {
         return Confirmpassword;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     /**

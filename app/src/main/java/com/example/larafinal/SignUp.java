@@ -11,10 +11,13 @@ import android.widget.Toast;
 
 import com.example.larafinal.data.Appdatabase;
 import com.example.larafinal.data.MyUserTable.MyUser;
+import com.example.larafinal.data.triptable.MyJourney;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUp extends AppCompatActivity {
 
@@ -71,32 +74,75 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
-                            // 1. استخدام خيط خلفي (Thread) لحفظ البيانات في Room لتجنب الـ Crash
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Appdatabase.getdb(SignUp.this).myUserQuery().insert(myUser);
-
-                                    // 2. العودة للخيط الرئيسي (UI Thread) للانتقال للشاشة التالية
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Toast.makeText(SignUp.this, "User registered successfully", Toast.LENGTH_SHORT).show();
-
-                                            // --- كود الانتقال إلى MainActivity ---
-                                            Intent intent = new Intent(SignUp.this, MainActivity.class);
-                                            startActivity(intent);
-                                            finish(); // لإغلاق شاشة التسجيل لكي لا يعود إليها المستخدم عند ضغط زر الرجوع
-                                        }
-                                    });
-                                }
-                            }).start();
+                            saveMyJourney(myUser);
 
                         } else {
                             Toast.makeText(SignUp.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             etEmail.setError("Email already exists or invalid");
                         }
+                    }
+                });
+    }
+    private void saveMyJourney(MyUser myUser) {
+
+        DatabaseReference database =
+                FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference userRef =
+                database.child("users");
+
+
+
+        /**
+         * حفظ المفتاح داخل الكائن
+         */
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        myUser.setKey(uid);
+
+        /**
+         * رفع البيانات إلى Firebase
+         */
+        userRef.child(uid).setValue(myUser)
+                .addOnCompleteListener(task -> {
+
+                    if (task.isSuccessful()) {
+
+                        Toast.makeText(
+                                getApplicationContext(),
+                                "Journey saved successfully!",
+                                Toast.LENGTH_SHORT
+                        ).show();
+
+//                        // إغلاق الصفحة
+//                        // 1. استخدام خيط خلفي (Thread) لحفظ البيانات في Room لتجنب الـ Crash
+//                        new Thread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Appdatabase.getdb(SignUp.this).myUserQuery().insert(myUser);
+//
+//                                // 2. العودة للخيط الرئيسي (UI Thread) للانتقال للشاشة التالية
+//                                runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        Toast.makeText(SignUp.this, "User registered successfully", Toast.LENGTH_SHORT).show();
+//
+//                                        // --- كود الانتقال إلى MainActivity ---
+//                                        Intent intent = new Intent(SignUp.this, MainActivity.class);
+//                                        startActivity(intent);
+//                                        finish(); // لإغلاق شاشة التسجيل لكي لا يعود إليها المستخدم عند ضغط زر الرجوع
+//                                    }
+//                                });
+//                            }
+//                        }).start();
+
+
+                    } else {
+
+                        Toast.makeText(
+                                getApplicationContext(),
+                                "Failed to save journey",
+                                Toast.LENGTH_SHORT
+                        ).show();
                     }
                 });
     }

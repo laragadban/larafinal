@@ -37,7 +37,7 @@ public class TripSchedule extends AppCompatActivity {
         setContentView(R.layout.activity_trip_schedule);
 
         // 1. ربط العناصر (تأكد أن الـ ID في الـ XML هو recyclerview)
-        listView = findViewById(R.id.listView);
+        listView = findViewById(R.id.lvDailyEvents);
         fabAdd = findViewById(R.id.fabAdd);
 
         if (listView == null) {
@@ -46,9 +46,9 @@ public class TripSchedule extends AppCompatActivity {
         }
 
 
-
+        getAllFromFirebase();
         // 3. إعداد الـ Adapter
-        adapter = new MyJourneyAdapter(this, R.layout.journey_item_layout, displayList);
+        adapter = new MyJourneyAdapter(this, R.layout.journey_item_layout,journeyList);
         listView.setAdapter(adapter);
 
         // 4. زر إضافة رحلة جديدة
@@ -96,6 +96,7 @@ public class TripSchedule extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         getAllFromFirebase();
+        adapter.notifyDataSetChanged();
     }
 
     @Override

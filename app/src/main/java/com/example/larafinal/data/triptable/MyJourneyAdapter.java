@@ -128,23 +128,23 @@ public class MyJourneyAdapter extends ArrayAdapter<MyJourney> {
 
             }
         });
-
-        // إرجاع العنصر بعد تعبئة البيانات
-        return vitem;
-        ImageButton btnLike = view.findViewById(R.id.btnLike);// حالة افتراضية (يمكنك لاحقاً ربطها بقاعدة البيانات)
+        ImageButton btnLike = vitem.findViewById(R.id.btnLike);// حالة افتراضية (يمكنك لاحقاً ربطها بقاعدة البيانات)
         final boolean[] isLiked = {false};
 
         btnLike.setOnClickListener(v -> {
             if (!isLiked[0]) {
                 // إذا ضغط وأصبح معجب (قلب ممتلئ)
-                btnLike.setImageResource(R.drawable.ic_heart_filled);
+                btnLike.setImageResource(R.drawable.ic_heart);
                 isLiked[0] = true;
             } else {
                 // إذا ضغط مرة أخرى لإزالة الإعجاب (قلب مفرغ)
-                btnLike.setImageResource(R.drawable.ic_heart_outline);
+                btnLike.setImageResource(R.drawable.ic_heart_white);
                 isLiked[0] = false;
             }
         });
+        // إرجاع العنصر بعد تعبئة البيانات
+        return vitem;
+
 
     }
 

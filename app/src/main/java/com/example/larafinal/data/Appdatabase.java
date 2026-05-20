@@ -18,7 +18,7 @@ import com.example.larafinal.data.triptable.MyJourney;
  * - جدول المستخدمين MyUser
  * - جدول الرحلات MyJourney
  */
-@Database(entities = {MyUser.class, MyJourney.class}, version = 4)
+@Database(entities = {MyUser.class, MyJourney.class}, version = 5)
 public abstract class Appdatabase extends RoomDatabase {
 
     /**
