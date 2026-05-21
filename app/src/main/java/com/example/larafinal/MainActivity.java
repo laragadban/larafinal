@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         // Heart button click listener - changes color when clicked
         if (fabAdd != null) {
             fabAdd.setOnClickListener(v -> {
-                isHeartRed = !isHeartRed;
+               isHeartRed = !isHeartRed;
                 if (isHeartRed) {
                     fabAdd.setBackgroundTintList(getResources().getColorStateList(android.R.color.holo_red_light));
                 } else {
