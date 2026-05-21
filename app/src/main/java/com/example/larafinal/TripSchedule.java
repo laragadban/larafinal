@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.larafinal.data.triptable.MyJourney;
 import com.example.larafinal.data.triptable.MyJourneyAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,11 +47,11 @@ public class TripSchedule extends AppCompatActivity {
         }
 
 
-        getAllFromFirebase();
+
         // 3. إعداد الـ Adapter
         adapter = new MyJourneyAdapter(this, R.layout.journey_item_layout,journeyList);
         listView.setAdapter(adapter);
-
+        getAllFromFirebase();
         // 4. زر إضافة رحلة جديدة
 
             fabAdd.setOnClickListener(v -> {
@@ -60,11 +61,18 @@ public class TripSchedule extends AppCompatActivity {
 
 
         // تجهيز مرجع قاعدة البيانات
-        myRef = FirebaseDatabase.getInstance().getReference("Journeys");
+
+
+
+
     }
 
     // 5. جلب البيانات من Firebase Realtime Database
     private void getAllFromFirebase() {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        journeyList.clear();
+        adapter.clear();
+        myRef = FirebaseDatabase.getInstance().getReference("Journeys_"+uid);
         journeyListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -81,7 +89,7 @@ public class TripSchedule extends AppCompatActivity {
                         Toast.makeText(TripSchedule.this, "Data Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                adapter.addAll(journeyList);
+              //  adapter.addAll(journeyList);
             }
 
             @Override

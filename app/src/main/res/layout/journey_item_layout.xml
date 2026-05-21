@@ -26,19 +26,18 @@
                 android:scaleType="centerCrop"
                 android:src="@android:drawable/ic_menu_gallery" />
 
-
-
-            <!-- زر الإعجاب (قلب) -->
+            <!-- زر الإعجاب (قلب) - تم تعديله ليكون أبيض افتراضياً -->
             <ImageButton
                 android:id="@+id/btnLike"
-                android:layout_width="40dp"
-                android:layout_height="47dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_gravity="top|end"
                 android:layout_margin="12dp"
-                android:background="@drawable/ic_heart"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Like"
                 android:padding="8dp"
-                app:tint="@color/white" />
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_heart_white" />
         </FrameLayout>
 
         <LinearLayout
@@ -47,7 +46,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- اسم الرحلة/المكان -->
             <TextView
                 android:id="@+id/tvTripName"
                 android:layout_width="match_parent"
@@ -57,7 +55,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!-- الوصف والعنوان -->
             <TextView
                 android:id="@+id/tvTripDescription"
                 android:layout_width="match_parent"
@@ -67,14 +64,12 @@
                 android:textColor="#7A7A7A"
                 android:textSize="14sp" />
 
-            <!-- خط فاصل بسيط -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginVertical="10dp"
                 android:background="#EEEEEE" />
 
-            <!-- قسم التقييم والمراجعات -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,7 +108,7 @@
                     android:text="(128 Reviews)"
                     android:textColor="#7A7A7A"
                     android:textSize="12sp"/>
-                <!-- زر المساعد الذكي (Gemini) -->
+
                 <ImageButton
                     android:id="@+id/btnGemini"
                     android:layout_width="40dp"
@@ -123,7 +118,7 @@
                     android:background="@drawable/ic_gemini"
                     android:contentDescription="Gemini AI"
                     android:padding="8dp"
-                    app:tint="@android:color/white" />
+                    app:tint="#673AB7" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

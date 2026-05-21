@@ -89,17 +89,17 @@
             android:layout_margin="16dp">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAiChat"
+                android:id="@+id/btnfavorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:text="✨ AI Chat"
+                android:text="Favorites"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:backgroundTint="#6366F1"
+                app:backgroundTint="#009688"
                 app:cornerRadius="24dp"
-                app:icon="@android:drawable/ic_menu_info_details"
+                app:icon="@drawable/ic_heart_white"
                 app:iconTint="#FFFFFF"
                 app:iconGravity="textStart"
                 app:iconPadding="8dp"

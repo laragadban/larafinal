@@ -12,12 +12,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.larafinal.Activiydetails;
+import com.example.larafinal.AddJourneyActivity;
 import com.example.larafinal.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -36,13 +41,11 @@ public class MyJourneyAdapter extends ArrayAdapter<MyJourney> {
      *
      * @param context     السياق الحالي للتطبيق
      * @param resource    ملف تصميم العنصر داخل القائمة
-     * @param displayList
+     * @param displayList قائمة الرحلات
      */
     public MyJourneyAdapter(@NonNull Context context, int resource, List<MyJourney> displayList) {
-
         // استدعاء Constructor للكلاس الأب
-        super(context, resource);
-
+        super(context, resource, displayList);
         // حفظ رقم ملف التصميم
         this.itemLayout = resource;
     }
@@ -64,88 +67,60 @@ public class MyJourneyAdapter extends ArrayAdapter<MyJourney> {
 
         // إذا لم يوجد عنصر جاهز يتم إنشاء عنصر جديد
         if (vitem == null) {
-
             vitem = LayoutInflater.from(getContext()).inflate(itemLayout, parent, false);
         }
 
-        /**
-         * ربط عناصر الواجهة الرسومية
-         */
+        // ربط عناصر الواجهة الرسومية
         ImageView ivTripImage = vitem.findViewById(R.id.ivTripImage);
-
         TextView tvTripName = vitem.findViewById(R.id.tvTripName);
-
         TextView tvTripDescription = vitem.findViewById(R.id.tvTripDescription);
+        ImageButton btnLike = vitem.findViewById(R.id.btnLike);
 
-        /**
-         * الحصول على الرحلة الحالية حسب موقعها
-         */
+        // الحصول على الرحلة الحالية حسب موقعها
         MyJourney current = getItem(position);
 
         if (current != null) {
-
             // عرض اسم الرحلة
             tvTripName.setText(current.getTripName());
 
             // عرض وصف الرحلة
             tvTripDescription.setText(current.getTripDescription());
 
-            /**
-             * فحص إذا كانت الصورة موجودة
-             */
-            if (current.getImage()!=null && current.getImage().length()>0)
-
-                // تحويل النص إلى صورة وعرضها
+            // فحص إذا كانت الصورة موجودة
+            if (current.getImage() != null && current.getImage().length() > 0) {
                 ivTripImage.setImageBitmap(stringToBitmap(current.getImage()));
-
-            else
-
-                // عرض صورة افتراضية
+            } else {
                 ivTripImage.setImageResource(R.drawable.ic_launcher_background);
+            }
         }
 
-        /**
-         * عند الضغط على الصورة يتم فتح شاشة التفاصيل
-         */
+        // عند الضغط على الصورة يتم فتح شاشة التفاصيل
         ivTripImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                // إنشاء Intent للانتقال إلى شاشة التفاصيل
-                Intent intent = new Intent(getContext(), Activiydetails.class);
-
-                // إرسال بيانات الرحلة
-                intent.putExtra("jr",current);
-
-                // تشغيل شاشة التفاصيل
-                getContext().startActivity(intent);
-
-                ImageButton btnLike = view.findViewById(R.id.btnLike);
-                btnLike.setOnClickListener(v -> {
-                    // كود الإعجاب هنا
-                    btnLike.setImageResource(android.R.drawable.btn_star_big_on); // تغيير الشكل عند الضغط
-                });
-
+                if (current != null) {
+                    Intent intent = new Intent(getContext(), Activiydetails.class);
+                    intent.putExtra("jr", current);
+                    getContext().startActivity(intent);
+                }
             }
         });
-        ImageButton btnLike = vitem.findViewById(R.id.btnLike);// حالة افتراضية (يمكنك لاحقاً ربطها بقاعدة البيانات)
+
+        // منطق زر الإعجاب (قلب)
         final boolean[] isLiked = {false};
-
         btnLike.setOnClickListener(v -> {
-            if (!isLiked[0]) {
-                // إذا ضغط وأصبح معجب (قلب ممتلئ)
-                btnLike.setImageResource(R.drawable.ic_heart);
-                isLiked[0] = true;
+            isLiked[0] = !isLiked[0]; // عكس الحالة
+            if (isLiked[0]) {
+                // تغيير اللون إلى الأحمر عند الضغط
+                btnLike.setImageTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.RED));
+                saveFavoraitJourney(current);
             } else {
-                // إذا ضغط مرة أخرى لإزالة الإعجاب (قلب مفرغ)
-                btnLike.setImageResource(R.drawable.ic_heart_white);
-                isLiked[0] = false;
+                // العودة للون الأبيض عند إلغاء الضغط
+                btnLike.setImageTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.WHITE));
             }
         });
-        // إرجاع العنصر بعد تعبئة البيانات
+
         return vitem;
-
-
     }
 
     /**
@@ -155,22 +130,55 @@ public class MyJourneyAdapter extends ArrayAdapter<MyJourney> {
      * @return صورة Bitmap
      */
     private Bitmap stringToBitmap(String imageString) {
-
-        // فحص إذا كانت الصورة فارغة
         if (imageString == null || imageString.isEmpty()) return null;
-
         try {
-
-            // فك تشفير النص إلى Bytes
             byte[] decodedString = Base64.decode(imageString, Base64.DEFAULT);
-
-            // تحويل الـ Bytes إلى Bitmap
             return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
         } catch (Exception e) {
-
-            // في حالة حدوث خطأ
             return null;
         }
+    }
+    private void saveFavoraitJourney(MyJourney myJourney) {
+
+        DatabaseReference database =
+                FirebaseDatabase.getInstance().getReference();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference journeysRef =
+                database.child("Journeys_"+uid);
+
+        DatabaseReference newJourneyRef =
+                journeysRef.push();
+
+        /**
+         * حفظ المفتاح داخل الكائن
+         */
+        myJourney.setKey(newJourneyRef.getKey());
+
+        /**
+         * رفع البيانات إلى Firebase
+         */
+        newJourneyRef.setValue(myJourney)
+                .addOnCompleteListener(task -> {
+
+                    if (task.isSuccessful()) {
+
+                        Toast.makeText(
+                                getContext(),
+                                "Journey saved successfully!",
+                                Toast.LENGTH_LONG
+                        ).show();
+
+                        // إغلاق الصفحة
+
+
+                    } else {
+
+                        Toast.makeText(
+                                getContext(),
+                                "Failed to save journey",
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                });
     }
 }

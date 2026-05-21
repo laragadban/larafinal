@@ -514,7 +514,7 @@ public class AddJourneyActivity extends AppCompatActivity {
                         Toast.makeText(
                                 AddJourneyActivity.this,
                                 "Journey saved successfully!",
-                                Toast.LENGTH_SHORT
+                                Toast.LENGTH_LONG
                         ).show();
 
                         // إغلاق الصفحة
@@ -525,7 +525,7 @@ public class AddJourneyActivity extends AppCompatActivity {
                         Toast.makeText(
                                 AddJourneyActivity.this,
                                 "Failed to save journey",
-                                Toast.LENGTH_SHORT
+                                Toast.LENGTH_LONG
                         ).show();
                     }
                 });

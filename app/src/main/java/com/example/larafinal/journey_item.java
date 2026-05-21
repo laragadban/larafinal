@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -43,6 +44,8 @@ public class journey_item extends AppCompatActivity {
      */
     private TextView tvRating;
     private Button btnGemini;
+    private ImageButton btnLike;
+    private boolean isLiked = false;
 
     /**
      * شريط التقييم
@@ -102,6 +105,10 @@ public class journey_item extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
 
         tvReviewsCount = findViewById(R.id.tvReviewsCount);
+
+        btnLike = findViewById(R.id.btnLike);
+
+        btnLike.setOnClickListener(v -> toggleLike());
     }
 
     /**
@@ -250,6 +257,20 @@ public class journey_item extends AppCompatActivity {
 
                         return insets;
                     });
+        }
+    }
+
+    /**
+     * تبديل حالة الإعجاب
+     * يغير لون القلب من أبيض إلى أحمر والعكس
+     */
+    private void toggleLike() {
+        isLiked = !isLiked;
+
+        if (isLiked) {
+            btnLike.setColorFilter(getResources().getColor(android.R.color.holo_red_dark));
+        } else {
+            btnLike.setColorFilter(getResources().getColor(android.R.color.white));
         }
     }
 }

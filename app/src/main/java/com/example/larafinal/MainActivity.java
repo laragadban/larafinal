@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,89 +34,60 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity {
 
-    // Spinner لاختيار القارة
+    // عناصر الواجهة
     private Spinner spinnerCon;
-
-    // حقل البحث
     private SearchView search;
-
-    // ListView لعرض الرحلات
     private ListView countryListView;
-
-    // Adapter المسؤول عن ربط البيانات بالـ ListView
     private MyJourneyAdapter adapter;
-
-    // زر الإضافة (+)
     private FloatingActionButton fabAdd;
 
-    // زر الذكاء الاصطناعي
-    private MaterialButton btnAiChat;
-
-    /**
-     * قائمة تحتوي جميع الرحلات القادمة من Firebase
-     */
+    // القوائم
     private List<MyJourney> allJourneysList = new ArrayList<>();
-
-    /**
-     * القائمة التي يتم عرضها فعلياً داخل ListView
-     * وتتغير حسب البحث
-     */
     private List<MyJourney> displayList = new ArrayList<>();
-
-    /**
-     * HashMap لتخزين القارات والدول التابعة لها
-     */
     private HashMap<String, ArrayList<String>> mapCountries;
 
-    /**
-     * يتم استدعاؤها عند فتح الشاشة
-     */
+    // Firebase variables to manage the listener
+    private DatabaseReference myRef;
+    private ValueEventListener journeysListener;
+    MaterialButton  btnfavorite ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // ربط الشاشة بملف XML
         setContentView(R.layout.main_activity);
 
-        /**
-         * ربط عناصر الواجهة مع الـ XML
-         */
+        // ربط عناصر الواجهة
         search = findViewById(R.id.search);
         countryListView = findViewById(R.id.countryListView);
         fabAdd = findViewById(R.id.fabAdd);
-        btnAiChat = findViewById(R.id.btnAiChat);
+        btnfavorite = findViewById(R.id.btnfavorite);
         spinnerCon = findViewById(R.id.spinnerCon);
 
-        /**
-         * إنشاء Adapter وربطه مع القائمة المعروضة
-         */
+       btnfavorite.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent intent = new Intent(MainActivity.this, TripSchedule.class);
+               startActivity(intent);
+           }
+       });
+
+
+        // إعداد الـ Adapter
         adapter = new MyJourneyAdapter(
                 this,
                 R.layout.journey_item_layout,
                 displayList
         );
-
-        // ربط الـ Adapter بالـ ListView
         countryListView.setAdapter(adapter);
 
-        /**
-         * برمجة البحث
-         * يتم تنفيذ الفلترة مباشرة أثناء الكتابة
-         */
+        // برمجة البحث
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            /**
-             * عند الضغط على زر البحث
-             */
             @Override
             public boolean onQueryTextSubmit(String query) {
                 filterData(query);
                 return false;
             }
 
-            /**
-             * عند تغيير النص داخل البحث
-             */
             @Override
             public boolean onQueryTextChange(String newText) {
                 filterData(newText);
@@ -122,222 +95,109 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /**
-         * عند الضغط على زر الإضافة (+)
-         * الانتقال إلى شاشة AddJourney
-         */
+        // زر الإضافة
         if (fabAdd != null) {
-
             fabAdd.setOnClickListener(v -> {
-
-                Intent intent = new Intent(
-                        MainActivity.this,
-                        AddJourneyActivity.class
-                );
-
+                Intent intent = new Intent(MainActivity.this, AddJourneyActivity.class);
                 startActivity(intent);
             });
         }
 
-        /**
-         * عند الضغط على زر الذكاء الاصطناعي
-         * الانتقال إلى شاشة AiChat
-         */
-        if (btnAiChat != null) {
-
-            btnAiChat.setOnClickListener(v -> {
-
-                Intent intent = new Intent(
-                        MainActivity.this,
-                        AiChat.class
-                );
-
-                startActivity(intent);
-            });
-        }
-
-        // تجهيز Spinner القارات
         setupContinentSpinner();
+        
+        // جلب البيانات لأول مرة
+        getAllFromFirebase();
     }
 
-    /**
-     * دالة فلترة البيانات حسب البحث
-     *
-     * @param text النص الذي يكتبه المستخدم
-     */
     private void filterData(String text) {
-
-        // تنظيف القائمة الحالية
         displayList.clear();
-
-        /**
-         * إذا كان البحث فارغاً
-         * يتم عرض جميع الرحلات
-         */
         if (text == null || text.trim().isEmpty()) {
-
             displayList.addAll(allJourneysList);
-
         } else {
-
-            // تحويل النص إلى حروف صغيرة للمقارنة
             String query = text.toLowerCase().trim();
-
-            /**
-             * المرور على جميع الرحلات
-             */
             for (MyJourney item : allJourneysList) {
-
-                // الحصول على الدولة
-                String country = (item.getCountry() != null)
-                        ? item.getCountry().toLowerCase()
-                        : "";
-
-                // الحصول على اسم الرحلة
-                String name = (item.getTripName() != null)
-                        ? item.getTripName().toLowerCase()
-                        : "";
-
-                /**
-                 * إذا كان اسم الدولة أو الرحلة يحتوي النص
-                 */
+                String country = (item.getCountry() != null) ? item.getCountry().toLowerCase() : "";
+                String name = (item.getTripName() != null) ? item.getTripName().toLowerCase() : "";
                 if (country.contains(query) || name.contains(query)) {
-
-                    // إضافة العنصر للقائمة المعروضة
                     displayList.add(item);
                 }
             }
         }
-
-        // تحديث البيانات داخل ListView
         adapter.notifyDataSetChanged();
     }
 
-    /**
-     * جلب جميع الرحلات من Firebase
-     */
     private void getAllFromFirebase() {
+        if (myRef == null) {
+            myRef = FirebaseDatabase.getInstance().getReference("Journeys");
+        }
 
-        // الاتصال بقاعدة البيانات
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        // إزالة المستمع القديم إذا وجد لتجنب التكرار
+        if (journeysListener != null) {
+            myRef.removeEventListener(journeysListener);
+        }
 
-        // المرجع الخاص بالرحلات
-        DatabaseReference myRef = database.getReference("Journeys");
-
-        /**
-         * مراقبة البيانات داخل Firebase
-         */
-        myRef.addValueEventListener(new ValueEventListener() {
-
-            /**
-             * عند وصول البيانات بنجاح
-             */
+        journeysListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                // تنظيف القائمة القديمة
                 allJourneysList.clear();
-
-                /**
-                 * المرور على جميع البيانات القادمة
-                 */
                 for (DataSnapshot taskSnapshot : snapshot.getChildren()) {
-
-                    // تحويل البيانات إلى كائن MyJourney
                     MyJourney task = taskSnapshot.getValue(MyJourney.class);
-
-                    // التأكد أن البيانات ليست فارغة
                     if (task != null) {
-
-                        // إضافة الرحلة للقائمة
                         allJourneysList.add(task);
                     }
                 }
-
-                /**
-                 * تحديث البيانات المعروضة
-                 * مع المحافظة على البحث الحالي
-                 */
+                // تحديث العرض بناءً على البحث الحالي
                 filterData(search.getQuery().toString());
             }
 
-            /**
-             * في حال حدوث خطأ أثناء الاتصال
-             */
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
-                Toast.makeText(
-                        MainActivity.this,
-                        "Error: " + error.getMessage(),
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(MainActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        };
+
+        // تفعيل المستمع الجديد
+        myRef.addValueEventListener(journeysListener);
     }
 
-    /**
-     * يتم استدعاؤها عند الرجوع للشاشة
-     */
     @Override
     protected void onResume() {
         super.onResume();
-
-        // تحديث البيانات من Firebase
+        // بما أننا نستخدم addValueEventListener، فهو يعمل تلقائياً
+        // إذا أردت التأكد من جلب البيانات عند كل رجوع، يمكنك تركها،
+        // ولكن الكود الجديد في getAllFromFirebase يمنع التكرار.
         getAllFromFirebase();
     }
 
-    /**
-     * تجهيز Spinner القارات والدول
-     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // تنظيف المستمع عند إغلاق التطبيق
+        if (myRef != null && journeysListener != null) {
+            myRef.removeEventListener(journeysListener);
+        }
+    }
+
     private void setupContinentSpinner() {
-
-        // إنشاء HashMap
         mapCountries = new HashMap<>();
-
-        /**
-         * قارة آسيا
-         */
         ArrayList<String> asia = new ArrayList<>();
-        asia.add("Saudi Arabia");
-        asia.add("UAE");
-        asia.add("Japan");
-
+        asia.add("Saudi Arabia"); asia.add("UAE"); asia.add("Japan");
         mapCountries.put("Asia", asia);
 
-        /**
-         * قارة أوروبا
-         */
         ArrayList<String> europe = new ArrayList<>();
-        europe.add("France");
-        europe.add("Germany");
-
+        europe.add("France"); europe.add("Germany");
         mapCountries.put("Europe", europe);
 
-        /**
-         * قارة أفريقيا
-         */
         ArrayList<String> africa = new ArrayList<>();
-        africa.add("Egypt");
-        africa.add("Nigeria");
-
+        africa.add("Egypt"); africa.add("Nigeria");
         mapCountries.put("Africa", africa);
 
-        /**
-         * إنشاء Adapter للـ Spinner
-         */
         ArrayAdapter<String> continentAdapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,
                 new ArrayList<>(mapCountries.keySet())
         );
-
-        // تصميم القائمة المنسدلة
-        continentAdapter.setDropDownViewResource(
-                android.R.layout.simple_spinner_dropdown_item
-        );
-
-        // ربط الـ Spinner بالـ Adapter
+        continentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCon.setAdapter(continentAdapter);
     }
 }
