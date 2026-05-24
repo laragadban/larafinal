@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 
 import com.example.larafinal.Activiydetails;
 import com.example.larafinal.AddJourneyActivity;
+import com.example.larafinal.AiChat;
 import com.example.larafinal.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -75,9 +76,20 @@ public class MyJourneyAdapter extends ArrayAdapter<MyJourney> {
         TextView tvTripName = vitem.findViewById(R.id.tvTripName);
         TextView tvTripDescription = vitem.findViewById(R.id.tvTripDescription);
         ImageButton btnLike = vitem.findViewById(R.id.btnLike);
+        ImageButton btnGemini=vitem.findViewById(R.id.btnGemini);
 
         // الحصول على الرحلة الحالية حسب موقعها
         MyJourney current = getItem(position);
+
+
+        btnGemini.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AiChat.class);
+                intent.putExtra("jrn",current);
+                getContext().startActivity(intent);
+            }
+        });
 
         if (current != null) {
             // عرض اسم الرحلة
@@ -138,14 +150,22 @@ public class MyJourneyAdapter extends ArrayAdapter<MyJourney> {
             return null;
         }
     }
-    private void saveFavoraitJourney(MyJourney myJourney) {
 
+    /**
+     * حفظ الرحلة في قائمة المفضلات الخاصة بالمستخدم الحالي في Firebase.
+     * يتم إنشاء عقدة خاصة لكل مستخدم باسم Journeys_UID لضمان خصوصية البيانات.
+     *
+     * @param myJourney كائن الرحلة المراد حفظه في قاعدة البيانات
+     */
+    private void saveFavoraitJourney(MyJourney myJourney) {
         DatabaseReference database =
                 FirebaseDatabase.getInstance().getReference();
+        // الحصول على معرف المستخدم الحالي
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        // المرجع الخاص برحلات المستخدم المفضل
         DatabaseReference journeysRef =
-                database.child("Journeys_"+uid);
-
+                database.child("Journeys_" + uid);
+        // إنشاء مفتاح فريد جديد للرحلة
         DatabaseReference newJourneyRef =
                 journeysRef.push();
 
@@ -167,9 +187,6 @@ public class MyJourneyAdapter extends ArrayAdapter<MyJourney> {
                                 "Journey saved successfully!",
                                 Toast.LENGTH_LONG
                         ).show();
-
-                        // إغلاق الصفحة
-
 
                     } else {
 

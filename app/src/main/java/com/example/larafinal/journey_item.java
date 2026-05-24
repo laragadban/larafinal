@@ -1,5 +1,6 @@
 package com.example.larafinal;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -91,6 +92,7 @@ public class journey_item extends AppCompatActivity {
     /**
      * ربط عناصر الواجهة الرسومية بالكود
      */
+    @SuppressLint("WrongViewCast")
     private void initViews() {
 
         ivTripImage = findViewById(R.id.ivTripImage);
@@ -107,6 +109,8 @@ public class journey_item extends AppCompatActivity {
         tvReviewsCount = findViewById(R.id.tvReviewsCount);
 
         btnLike = findViewById(R.id.btnLike);
+
+
 
         btnLike.setOnClickListener(v -> toggleLike());
     }
